@@ -1,0 +1,21 @@
+Saldo projetado:
+
+(receitas já recebidas + receitas futuras pendentes) - (despesas já pagas + despesas futuras pendentes)
+saldo_projetado = SUM(receitas) - SUM(despesas)
+
+Balanço:
+
+SELECT 
+    (SELECT SUM(valor) FROM tb_transacoes 
+     WHERE tipo='receita' AND data BETWEEN X AND Y)
+  -
+    (SELECT SUM(valor) FROM tb_transacoes 
+     WHERE tipo='despesa' AND data BETWEEN X AND Y)
+AS balanco;
+
+
+Saldo:
+
+SELECT SUM(saldo_atual)
+FROM tb_contas
+WHERE usuario_id = X;
