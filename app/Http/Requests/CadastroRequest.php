@@ -24,11 +24,19 @@ class CadastroRequest extends FormRequest
     public function rules()
     {
         return [
+            'nome'       => 'required|string|max:80',
+            'dataNasc'   => 'required|date',
+            'ddd'        => 'required|digits:2',
+            'telefone'   => 'required|string|max:15',
+            'email'      => 'required|email|max:80|unique:tb_usuarios,email',
+            'senha'      => 'required|string|min:6|confirmed'
+        ];
+    }
 
-            'nome' => 'required|min:8|max:10',
-            'dataNasc' => 'required',
-            'email' => 'required'
-            
+    public function messages()
+    {
+        return [
+            'senha.confirmed' => 'As senhas não coincidem.',
         ];
     }
 }

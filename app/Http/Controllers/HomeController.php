@@ -6,6 +6,10 @@ use App\Http\Requests\CadastroRequest;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Http\Requests\ProcuraRequest;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -13,14 +17,45 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function entrar(){
+        return view('entrar');
+    }
+
     public function cadastro(){
         return view('cadastro');
     }
 
+    public function dashboard()
+    {
+        $usuario = session('usuario');
+        return view('dashboard', compact('usuario'));
+    }
+
+
+    public function logar(LoginRequest $request)
+    {
+
+        if (Auth::attempt($request->only('email', 'password'))) {
+            return redirect()->intended('dashboard');
+        }
+        
+        throw new AuthenticationException('Credenciais inválidas.');
+    }
+
     public function cadastrarUsuario(CadastroRequest $request){
 
-        Usuario::create($request->validated());
-        return view('dadosUsuario');
+        $usuario = Usuario::create([
+            'nome' => $request->nome,
+            'dataNasc' => $request->dataNasc,
+            'ddd' => $request->ddd,
+            'telefone' => $request->telefone,
+            'email' => $request->email,
+            'senha' => Hash::make($request->senha),
+        ]);
+
+        Auth::login($usuario);
+
+        return redirect()->intended('dashboard');
     }
 
     public function listarUsuarios(){

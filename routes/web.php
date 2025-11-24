@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use Faker\Guesser\Name;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +15,31 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'home']);
 
-Route::get('/cadastro', [HomeController::class, 'cadastro'])->name('cadastroUsuario');
+Route::get('/', function () { return redirect('/home'); });
+
+Route::get('/home', [HomeController::class, 'home']);
+
+Route::get('/entrar', [HomeController::class, 'entrar'])->name('credenciaisEntrada');
+
+Route::get('/cadastro', [HomeController::class, 'cadastro']);
+
+Route::post('/cadastrarUsuario', [HomeController::class, 'cadastrarUsuario'])->name('dadosCadastro');
+
+Route::post('/login', [HomeController::class, 'logar'])->name('dadosLogin');
+
+Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware('auth');;
+
+
+
+
+
 
 Route::get('/usuarios', [HomeController::class, 'listarUsuarios'])->name('listaUsuarios');
 
 Route::get('/filtragemUsuarios', [HomeController::class, 'filtragemUsuarios']);
 
 Route::post('/resultadoFiltragem', [HomeController::class, 'resultadoFiltragem']);
-
-Route::post('/dadosUsuario', [HomeController::class, 'cadastrarUsuario']);
 
 Route::post('/deletarUsuario/{id}', [HomeController::class, 'deletarUsuario'])->name('deletar');
 

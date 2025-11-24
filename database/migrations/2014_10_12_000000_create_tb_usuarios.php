@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome', 80);
             $table->date('dataNasc');
-            $table->string('ddd', 3);
+            $table->string('ddd', 2);
             $table->string('telefone', 15);
             $table->string('email', 80)->unique();
             $table->string('senha');            
