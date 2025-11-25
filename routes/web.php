@@ -30,7 +30,7 @@ Route::post('/login', [HomeController::class, 'logar'])->name('dadosLogin');
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware('auth');;
 
-
+Route::get('/teste', [HomeController::class, 'dashboard']);
 
 
 
