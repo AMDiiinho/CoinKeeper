@@ -7,7 +7,11 @@
     <title>Cadastre-se</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    @font-face {
+        font-family: 'Impact';
+        src: url('caminho/para/a/fonte/impact.woff') format('woff'); /* Use o caminho correto */
+    }
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
     <style>
 
@@ -18,9 +22,13 @@
             z-index: 1; /* Stay on top */
             top: 0; /* Stay at the top */
             left: 0;
-            background-color: #1b3563; /* Black*/
+            background: linear-gradient(to bottom,
+                        rgba(27, 53, 99, 1) 0%,
+                        rgba(0, 18, 45, 1)) 50%;
+
             overflow-x: hidden; /* Disable horizontal scroll */
             padding-top: 64px;
+            
 
         }
 
@@ -100,7 +108,7 @@
         .submenu {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.5s ease;
             padding-left: 20px;
         }
 
@@ -158,7 +166,7 @@
         .container-principal {
             height: 866px;
             background-color: #edededff;
-            margin: 80px 15px 0 325px;
+            margin: 64px 15px 0 325px;
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0px 6px 3px rgba(0, 0, 0, 0.2)
@@ -171,7 +179,7 @@
         }
 
         body {
-            font-family: "Roboto", "Sans-Serif"
+            font-family: "Roboto", "Sans-Serif";
         }
 
         .cards-e-contas {
@@ -210,10 +218,31 @@
         .card-recebido,
         .card-saldo-projetado,
         .card-balanco {
+            display: flex;              /* coloca os filhos lado a lado */
+            align-items: center; 
             background-color: white;
             border: 1px solid rgba(0, 0, 0, 0.2);
             box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
+            height: 75px;
+            padding: 10px; 
+            
+        }
+
+        .card-icone {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            background-color: #45d16ac5;
+            color: #f6f6f6ff;
+            font-weight: bold;
+            font-size: 32px;
+            display: flex;
+            font-family: 'Impact', sans-serif;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 10px 10px 4px;
+            flex-shrink: 0;
         }
 
         .minhas-contas{
@@ -227,6 +256,20 @@
             box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
         }
+        
+        .card-tipo {
+            font-family: "Roboto", "Sans-serif";
+            font-size: 18px;
+            font-weight: 100;
+            margin-top: 2px;
+
+        }
+
+        .card-valor {
+            font-size: 22px;
+            font-weight: 400;
+        }
+
     </style>
 
 </head>
@@ -271,7 +314,10 @@
         <div class="cards-e-contas">
             <div class="grid-cards">
                 <div class="card-receita">
-                    receitas
+                    <div class="card-icone">$</div>
+                    <span class="card-tipo">Receitas:<br>
+                        <span class="card-valor">R$: 8,52</span>
+                    </span>
                 </div>
                 <div class="card-despesa">
                     despesas
