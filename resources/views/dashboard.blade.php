@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @font-face {
         font-family: 'Impact';
-        src: url('caminho/para/a/fonte/impact.woff') format('woff'); /* Use o caminho correto */
+        src: url('caminho/para/a/fonte/impact.woff') format('woff');
     }
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
@@ -233,8 +233,6 @@
             width: 50px;
             height: 50px;
             border-radius: 8px;
-            background-color: #45d16ac5;
-            color: #f6f6f6ff;
             font-weight: bold;
             font-size: 32px;
             display: flex;
@@ -243,7 +241,17 @@
             justify-content: center;
             margin: 10px 10px 10px 4px;
             flex-shrink: 0;
-        }
+        }   
+
+        .card-receita .card-icone { background-color: #45d16ac5;  color: #428f04ff; }
+        .card-despesa .card-icone { background-color: #ff6161c5; color: #ad0000ff;}
+        .card-a-pagar .card-icone { background-color: #ffcc6fc5; color: #e1590bff;}
+        .card-a-receber .card-icone { background-color: #79edfcc5; color: #0080ffff;}
+        .card-pago .card-icone { background-color: #fe729cc5; color: #b2002fff; }
+        .card-recebido .card-icone { background-color: #d9fe89c5; color: #5aad00ff; }
+        .card-saldo-projetado .card-icone { background-color: #d7d7d7c5; color: #8a8a8aff; font-size: 26px;}
+        .card-balanco .card-icone { background-color: #d7d7d7c5; color: #8a8a8aff; font-size: 26px; }
+        
 
         .minhas-contas{
             margin-top: 18px;
@@ -313,57 +321,76 @@
 
         <div class="cards-e-contas">
             <div class="grid-cards">
+
+
                 <div class="card-receita">
                     <div class="card-icone">$</div>
                     <span class="card-tipo">Receitas:<br>
                         <span class="card-valor">R$: 8,52</span>
                     </span>
                 </div>
+
+
                 <div class="card-despesa">
-                    despesas
+                    <div class="card-icone">$</div>
+                    <span class="card-tipo">Despesas:<br>
+                        <span class="card-valor">R$: 8,52</span>
+                    </span>
                 </div>
 
                 <div class="card-pago">
-                    pago
+                    <div class="card-icone">$</div>
+                    <span class="card-tipo">Valor pago:<br>
+                        <span class="card-valor">R$: 8,52</span>
+                    </span>
                 </div>
 
                 <div class="card-recebido">
-                    recebido
+                    <div class="card-icone">$</div>
+                    <span class="card-tipo">Valor recebido:<br>
+                        <span class="card-valor">R$: 8,52</span>
+                    </span>
                 </div>
                 
                 <div class="card-a-pagar">
-                    a pagar
+                    <div class="card-icone">$</div>
+                    <span class="card-tipo">Total à pagar:<br>
+                        <span class="card-valor">R$: 8,52</span>
+                    </span>
                 </div>
 
                 <div class="card-a-receber">
-                    a receber
+                    <div class="card-icone">$</div>
+                    <span class="card-tipo">Total à receber:<br>
+                        <span class="card-valor">R$: 8,52</span>
+                    </span>
                 </div>
 
                 <div class="card-saldo-projetado">
-                    saldo projetado
+                    <div class="card-icone">+/-</div>
+                    <span class="card-tipo">Saldo projetado:<br>
+                        <span class="card-valor">R$: 8,52</span>
+                    </span>
                 </div>
 
                 <div class="card-balanco">
-                    balanço
+                    <div class="card-icone">+/-</div>
+                    <span class="card-tipo">Balanço:<br>
+                        <span class="card-valor">R$: 8,52</span>
+                    </span>
                 </div>
 
             </div>
 
             <div class="minhas-contas">
-                minhas contas
+                <span>minhas contas</span>
             </div>
         </div>
 
     </div>
     
-    <script>
-        document.querySelectorAll('.secao > .bt-menu-lateral').forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault(); // evita navegação
-                link.parentElement.classList.toggle('ativa');
-            });
-        });
-    </script>
+    @vite('resources/js/menu_lateral.js')
+
 </body>
 
 
