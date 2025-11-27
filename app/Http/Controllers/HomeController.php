@@ -31,6 +31,11 @@ class HomeController extends Controller
         return view('dashboard', compact('usuario'));
     }
 
+    public function contas(){
+        $user = Auth::user();
+        return view('contas');
+    }
+
 
     public function logar(LoginRequest $request)
     {

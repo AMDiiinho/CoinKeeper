@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard</title>
+    <title>Minhas contas</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @font-face {
@@ -138,6 +138,15 @@
             padding: 10px;
         }
 
+        .submenu li a.active {
+            background: linear-gradient(to right,
+                rgba(69, 209, 106, 0.9) 0%,
+                rgba(69, 209, 106, 0.001) 80%
+            );
+            font-weight: bold;
+        }
+
+
         .submenu li a::before {
             content: "";
             position: absolute;
@@ -201,7 +210,7 @@
             width: 100%;
         }
 
-        .card-saldo{
+        .header-contas{
             display: flex;  
             width: 100%;
             height: 80px;
@@ -215,91 +224,40 @@
             
         }
 
-        .grid-cards {
-            display: grid;
-            grid-template-columns: auto auto;
-            width: 60%;
-            height: 360px;
-            column-gap: 10px;
-            row-gap: 10px;
-            padding-top: 18px;
-
-        }
-
-        .card-receita,
-        .card-despesa,
-        .card-a-pagar,
-        .card-a-receber,
-        .card-pago,
-        .card-recebido,
-        .card-saldo-projetado,
-        .card-balanco {
-            display: flex;              /* coloca os filhos lado a lado */
-            align-items: center; 
-            background-color: white;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.2);
+        .lista-contas {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100% ;
+            height: 200px;
             border-radius: 4px;
-            height: 75px;
-            padding: 10px; 
+            background-color: white;
+            margin-top: 10px;
+            box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.2);
             
         }
 
-        .card-receita { border-left: 5px solid #428f04ff; }
-        .card-despesa { border-left: 5px solid #ad0000ff; }
-        .card-a-pagar { border-left: 5px solid #e1590bff;}
-        .card-a-receber { border-left: 5px solid #0080ffff;}
-        .card-pago { border-left: 5px solid #b2002fff;  }
-        .card-recebido { border-left: 5px solid #5aad00ff; }
-        .card-saldo-projetado { border-left: 5px solid #8a8a8aff; }
-        .card-balanco { border-left: 5px solid #8a8a8aff; }
-
-        .card-icone {
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
+        .bt-add-conta {
+            position: absolute;
+            font-size: 16px;
             font-weight: bold;
-            font-size: 32px;
-            display: flex;
-            font-family: 'Impact', sans-serif;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 10px 10px 4px;
-            flex-shrink: 0;
-        }   
+            background-color: #023997ff;
+            color: white;
+            border-radius: 5px;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            width: 340px;
+            border: none;
 
-        .card-receita .card-icone { background-color: #45d16ac5;  color: #428f04ff; }
-        .card-despesa .card-icone { background-color: #ff6161c5; color: #ad0000ff;}
-        .card-a-pagar .card-icone { background-color: #ffcc6fc5; color: #e1590bff;}
-        .card-a-receber .card-icone { background-color: #79edfcc5; color: #0080ffff;}
-        .card-pago .card-icone { background-color: #fe729cc5; color: #b2002fff; }
-        .card-recebido .card-icone { background-color: #d9fe89c5; color: #5aad00ff; }
-        .card-saldo-projetado .card-icone { background-color: #d7d7d7c5; color: #8a8a8aff; font-size: 26px;}
-        .card-balanco .card-icone { background-color: #d7d7d7c5; color: #8a8a8aff; font-size: 26px; }
-        
-
-        .minhas-contas{
-            margin: 18px 10px 0 0;
-            align-self: left;
-            height: 340px;
-            width: 40%;
-            background-color: white;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-        }
-        
-        .card-tipo {
-            font-family: "Roboto", "Sans-serif";
-            font-size: 18px;
-            font-weight: 100;
-            margin-top: 2px;
-
+            transition: 0.3s ease;
         }
 
-        .card-valor {
-            font-size: 22px;
-            font-weight: 400;
+        .bt-add-conta:hover{
+            background-color: #005effff;
         }
 
     </style>
@@ -317,15 +275,15 @@
 
                 <li>
                     <a href="/dashboard"
-                    class="bt-menu-lateral {{ Request::is('dashboard') ? 'active' : '' }}">
-                    Dashboard <i class="fas fa-chart-bar icone-dashboard"></i>
+                        class="bt-menu-lateral">
+                        Dashboard <i class="fas fa-chart-bar icone-dashboard"></i>
                     </a>
                 </li>
 
-                <li class="secao">
-                    <a class="bt-menu-lateral">Financeiro<i class="fas fa-chevron-down menu-seta"></i></a>
+                <li class="secao {{ Request::is('contas*') ? 'ativa' : '' }}">
+                    <a href="#" class="bt-menu-lateral">Financeiro<i class="fas fa-chevron-down menu-seta"></i></a>
                     <ul class="submenu">
-                        <li><a href="/contas">Contas</a></li>
+                        <li><a href="/contas" class="{{ Request::is('contas') ? 'active' : '' }}">Contas</a></li>
                         <li><a href="#">Transações</a></li>
                         <li><a href="#">Extrato</a></li>
                         <li><a href="#">Receitas</a></li>
@@ -345,79 +303,16 @@
     
     <div class="container-principal">
 
-        <div class="card-saldo">
-            <h1>Dashboard</h1><h1>Saldo Atual: R$ 0,00</h1>
+        <div class="header-contas">
+            <h1>Minhas Contas</h1>
+            <h1>Saldo total: R$ 12,92</h1>
         </div>
 
-        <div class="cards-e-contas">
-
-            <div class="minhas-contas">
-                <span>minhas contas</span>
-            </div>
-
-            <div class="grid-cards">
-
-
-                <div class="card-receita">
-                    <div class="card-icone">$</div>
-                    <span class="card-tipo">Receitas:<br>
-                        <span class="card-valor">R$: 8,52</span>
-                    </span>
-                </div>
-
-
-                <div class="card-despesa">
-                    <div class="card-icone">$</div>
-                    <span class="card-tipo">Despesas:<br>
-                        <span class="card-valor">R$: 8,52</span>
-                    </span>
-                </div>
-
-                <div class="card-pago">
-                    <div class="card-icone">$</div>
-                    <span class="card-tipo">Valor pago:<br>
-                        <span class="card-valor">R$: 8,52</span>
-                    </span>
-                </div>
-
-                <div class="card-recebido">
-                    <div class="card-icone">$</div>
-                    <span class="card-tipo">Valor recebido:<br>
-                        <span class="card-valor">R$: 8,52</span>
-                    </span>
-                </div>
-                
-                <div class="card-a-pagar">
-                    <div class="card-icone">$</div>
-                    <span class="card-tipo">Total à pagar:<br>
-                        <span class="card-valor">R$: 8,52</span>
-                    </span>
-                </div>
-
-                <div class="card-a-receber">
-                    <div class="card-icone">$</div>
-                    <span class="card-tipo">Total à receber:<br>
-                        <span class="card-valor">R$: 8,52</span>
-                    </span>
-                </div>
-
-                <div class="card-saldo-projetado">
-                    <div class="card-icone">+/-</div>
-                    <span class="card-tipo">Saldo projetado:<br>
-                        <span class="card-valor">R$: 8,52</span>
-                    </span>
-                </div>
-
-                <div class="card-balanco">
-                    <div class="card-icone">+/-</div>
-                    <span class="card-tipo">Balanço:<br>
-                        <span class="card-valor">R$: 8,52</span>
-                    </span>
-                </div>
-
-            </div>
+        
+        <div class="lista-contas">
+            <button class="bt-add-conta">+ Adicionar Conta</button>
+            <span class="texto-contas">Você ainda não possui contas. Clique no botão abaixo para registrar uma.</span>
         </div>
-
     </div>
     
     @vite('resources/js/menu_lateral.js')
