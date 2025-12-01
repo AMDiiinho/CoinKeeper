@@ -74,26 +74,40 @@
             <span class="bt-fechar" id="fechar">&times;</span>
             <h2>Nova conta</h2>
 
-            <form action="#" class="form-contas" method="POST">
+            <form action= {{ route ('dadosConta') }} class="form-contas" method="POST">
                 @csrf
 
                 <label>Banco</label><br>
-                <select type="text" placeholder="Selecione a bandeira" name="banco">
+                <select placeholder="Selecione a bandeira" name="banco">
                     @foreach($bancos as $valor => $label)
-                        <option value="{{ $valor }}">{{ $label }}</option>
+                        <option value="{{ $valor }}" {{ old('banco') == $valor ? 'selected' : '' }}>{{ $label }}</option>
                     @endforeach
 
-                </select><br>
+                </select>
+                @error('banco')
+                    <div class="erro">{{ $message }}</div>
+                @enderror
 
                 <label>Saldo</label><br>
-                <input type="number" placeholder="Digite o saldo atual do banco" name="saldo"><br>
+                <input type="text" placeholder="Digite o saldo atual do banco" name="saldo">
+                @error('saldo')
+                    <small class="erro">{{ $message }}</small>
+                @enderror
 
-                <button type="submit">Salvar</button>
+                <button type="submit">Salvar conta</button>
             </form>
         </div>
     </div>
     
     @vite('resources/js/menu_lateral.js')
+
+    @if ($errors->any())
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("modalContainer").style.display = "block";
+        });
+    </script>
+    @endif
 
 </body>
 

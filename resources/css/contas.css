@@ -316,3 +316,10 @@
         font-size: 30px;
         cursor: pointer;
     }
+
+    .erro {
+        color: red;
+        font-size: 13px;
+        margin-bottom: 15px;
+        display: block;
+    }
