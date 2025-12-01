@@ -240,5 +240,79 @@
     }
 
     .bt-add-conta:hover{
-        background-color: #005effff;
+        background-color: #45d16ac5;
+    }
+
+
+    .modal-container {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0; top: 0;
+        width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-card-contas {
+        background-color: #f8f8f8ff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-contas {
+        margin-top: 30px;
+    }
+
+    .form-contas label {
+        font-size: 18px;
+    }
+
+    .form-contas select {
+        padding: 8px;
+        width: 100%;
+        font-size: 16px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        background-color: rgb(240, 240, 240);
+        transition: 0.3s ease
+    }
+
+    .form-contas select:hover {
+        background-color: aliceblue;
+    }
+
+    .form-contas input {
+        padding: 8px;
+        width: 100%;
+        font-size: 16px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .form-contas button {
+        padding: 10px;
+        width: 100%;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 4px;
+        color: whitesmoke;
+        background-color: #023997ff;
+        transition: 0.3s ease;
+    }
+
+    .form-contas button:hover {
+        background-color: rgb(9, 210, 46)
+    }
+
+    .bt-fechar {
+        float: right;
+        font-size: 30px;
+        cursor: pointer;
     }

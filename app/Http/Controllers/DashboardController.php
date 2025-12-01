@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Contas;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -15,6 +15,6 @@ class DashboardController extends Controller
 
     public function contas(){
         Auth::user();
-        return view('contas');
+        return view('contas', ['bancos' => Contas::BANCOS]);
     }
 }

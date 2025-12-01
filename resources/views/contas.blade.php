@@ -7,6 +7,7 @@
     <title>Minhas contas</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/js/modal_contas.js'])
     @vite('resources/css/contas.css')
     @font-face {
         font-family: 'Impact';
@@ -63,8 +64,32 @@
 
         
         <div class="lista-contas">
-            <button class="bt-add-conta">+ Adicionar Conta</button>
-            <span class="texto-contas">Você ainda não possui contas. Clique no botão abaixo para registrar uma.</span>
+            <button id="abreModal" class="bt-add-conta">+ Adicionar Conta</button>
+            <span class="texto-contas">Você ainda não possui contas. Clique no botão acima para registrar uma.</span>
+        </div>
+    </div>
+
+    <div id="modalContainer" class="modal-container">
+        <div class="modal-card-contas">
+            <span class="bt-fechar" id="fechar">&times;</span>
+            <h2>Nova conta</h2>
+
+            <form action="#" class="form-contas" method="POST">
+                @csrf
+
+                <label>Banco</label><br>
+                <select type="text" placeholder="Selecione a bandeira" name="banco">
+                    @foreach($bancos as $valor => $label)
+                        <option value="{{ $valor }}">{{ $label }}</option>
+                    @endforeach
+
+                </select><br>
+
+                <label>Saldo</label><br>
+                <input type="number" placeholder="Digite o saldo atual do banco" name="saldo"><br>
+
+                <button type="submit">Salvar</button>
+            </form>
         </div>
     </div>
     
