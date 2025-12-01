@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use Faker\Guesser\Name;
@@ -28,13 +29,19 @@ Route::post('/cadastrarUsuario', [HomeController::class, 'cadastrarUsuario'])->n
 
 Route::post('/login', [HomeController::class, 'logar'])->name('dadosLogin');
 
-Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware('auth');;
-
-Route::get('/contas', [HomeController::class, 'contas'])->middleware('auth');
 
 
 
 
+
+
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware('auth');;
+
+Route::get('/contas', [DashboardController::class, 'contas'])->middleware('auth');
+
+
+
+/*
 Route::get('/usuarios', [HomeController::class, 'listarUsuarios'])->name('listaUsuarios');
 
 Route::get('/filtragemUsuarios', [HomeController::class, 'filtragemUsuarios']);
@@ -47,4 +54,4 @@ Route::get('/usuarios/{id}/editar', [HomeController::class, 'editarUsuario'])->n
 
 Route::put('/usuarios/{id}', [HomeController::class, 'salvarAlteracao'])->name('salvarAlteracao');
 
-
+*/

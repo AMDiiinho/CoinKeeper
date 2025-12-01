@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CadastroRequest;
-use Illuminate\Http\Request;
 use App\Models\Usuario;
-use App\Http\Requests\ProcuraRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
@@ -24,18 +22,6 @@ class HomeController extends Controller
     public function cadastro(){
         return view('cadastro');
     }
-
-    public function dashboard()
-    {
-        $usuario = session('usuario');
-        return view('dashboard', compact('usuario'));
-    }
-
-    public function contas(){
-        $user = Auth::user();
-        return view('contas');
-    }
-
 
     public function logar(LoginRequest $request)
     {
@@ -62,6 +48,8 @@ class HomeController extends Controller
 
         return redirect()->intended('dashboard');
     }
+
+    /*
 
     public function listarUsuarios(){
         $usuarios = Usuario::all();
@@ -117,5 +105,7 @@ class HomeController extends Controller
         $usuario->update($request->all());
 
         return redirect()->route('listaUsuarios');
-    }   
+    }
+    */   
 }
+    
