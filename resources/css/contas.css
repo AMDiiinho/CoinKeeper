@@ -13,313 +13,356 @@
         padding-top: 64px;
         
 
-    }
+}
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
 
-    .topo-menu-lateral{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 64px;
-        font-size: 12px;
-        padding: 20px;
-        background-color: #45d16a;
-        box-shadow: 0 4px 2px rgba(0, 0, 0, 0.3);
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+.topo-menu-lateral{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    font-size: 12px;
+    padding: 20px;
+    background-color: #45d16a;
+    box-shadow: 0 4px 2px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-    .menu-lateral .bt-menu-lateral {
-        
-        position: relative;
-        padding: 10px 15px;
-        text-decoration: none;
-        font-size: 20px;
-        color: white;
-        display: block;
-        margin: 30px 20px 1px 20px;
-        border-radius: 2px;
-        border-bottom: 1px solid #d1d1d1ff;
-        background-color: transparent;
-
-        overflow: hidden;
-    }
-
-    /* Gradiente como pseudo-elemento */
-    .menu-lateral .bt-menu-lateral::before {
-        content: "";
-        position: absolute;
-        inset: 0; /* ocupa toda a área do botão */
-        background: linear-gradient(
-            to right,
-            rgba(255,255,255,0.25) 0%,
-            rgba(255,255,255,0.15) 40%,
-            rgba(255,255,255,0.05) 80%,
-            rgba(255,255,255,0.0) 100%
-        );
-        opacity: 0; /* invisível inicialmente */
-        transition: opacity 0.2s ease; /* animação rápida e discreta */
-        z-index: -1; /* fica atrás do texto */
-    }
-
-    /* Hover ativa o fade */
-    .menu-lateral .bt-menu-lateral:hover::before,
-    .menu-lateral .bt-menu-lateral.active::before {
-        opacity: 1;
-    }
-
-    .menu-lateral .bt-menu-lateral.active {
-        background: linear-gradient(to right,
-                            rgba(69, 209, 106, 0.9) 0%,
-                            rgba(69, 209, 106, 0.001) 80%
-                            );
-        font-weight: bold;
-    }
-            
-    .menu-lateral ul {
-        list-style-type: none;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    .menu-lateral p {
-        padding-left: 20px;
-        padding-top: 50px;
-        font-size: 26px;
-        font-weight: bold;
-        color: white;
-    }
+.menu-lateral .bt-menu-lateral {
     
-    .submenu {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.5s ease;
-        padding-left: 20px;
-    }
+    position: relative;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    display: block;
+    margin: 30px 20px 1px 20px;
+    border-radius: 2px;
+    border-bottom: 1px solid #d1d1d1ff;
+    background-color: transparent;
 
-    .submenu li {
-        margin: 10px 40px 0 35px;
+    overflow: hidden;
+}
+
+/* Gradiente como pseudo-elemento */
+.menu-lateral .bt-menu-lateral::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* ocupa toda a área do botão */
+    background: linear-gradient(
+        to right,
+        rgba(255,255,255,0.25) 0%,
+        rgba(255,255,255,0.15) 40%,
+        rgba(255,255,255,0.05) 80%,
+        rgba(255,255,255,0.0) 100%
+    );
+    opacity: 0; /* invisível inicialmente */
+    transition: opacity 0.2s ease; /* animação rápida e discreta */
+    z-index: -1; /* fica atrás do texto */
+}
+
+/* Hover ativa o fade */
+.menu-lateral .bt-menu-lateral:hover::before,
+.menu-lateral .bt-menu-lateral.active::before {
+    opacity: 1;
+}
+
+.menu-lateral .bt-menu-lateral.active {
+    background: linear-gradient(to right,
+                        rgba(69, 209, 106, 0.9) 0%,
+                        rgba(69, 209, 106, 0.001) 80%
+                        );
+    font-weight: bold;
+}
         
-    }
+.menu-lateral ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
 
-    .submenu li a{
-        position: relative;
-        display: block;
-        font-size: 20px;
-        color: white;
-        text-decoration: none;
-        border-radius: 2px;
-        overflow: hidden;
-        padding: 10px;
-    }
+.menu-lateral p {
+    padding-left: 20px;
+    padding-top: 50px;
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+}
 
-    .submenu li a.active {
-        background: linear-gradient(to right,
-            rgba(69, 209, 106, 0.9) 0%,
-            rgba(69, 209, 106, 0.001) 80%
-        );
-        font-weight: bold;
-    }
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    padding-left: 20px;
+}
 
+.submenu li {
+    margin: 10px 40px 0 35px;
+    
+}
 
-    .submenu li a::before {
-        content: "";
-        position: absolute;
-        inset: 0; /* ocupa toda a área do link */
-        background: linear-gradient(
-            to right,
-            rgba(255,255,255,0.25) 0%,
-            rgba(255,255,255,0.15) 40%,
-            rgba(255,255,255,0.05) 80%,
-            rgba(255,255,255,0.0) 100%
-        );
-        opacity: 0; /* invisível inicialmente */
-        transition: opacity 0.2s ease; /* animação rápida e discreta */
-        z-index: -1; /* fica atrás do texto */
-    }
+.submenu li a{
+    position: relative;
+    display: block;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 2px;
+    overflow: hidden;
+    padding: 10px;
+}
 
-    /* Hover ativa o fade */
-    .submenu li a:hover::before {
-        opacity: 1;
-    }
-
-    .secao.ativa .submenu {
-        max-height: 500px; /* altura suficiente para mostrar os itens */
-    }
-
-    .menu-seta {
-        float: right;
-        transition: transform 0.3s ease;
-    }
-
-    .icone-dashboard {
-        float: right;
-    }
-
-    .secao.ativa .menu-seta {
-        transform: rotate(180deg); /* gira para cima quando abre */
-    }
+.submenu li a.active {
+    background: linear-gradient(to right,
+        rgba(69, 209, 106, 0.9) 0%,
+        rgba(69, 209, 106, 0.001) 80%
+    );
+    font-weight: bold;
+}
 
 
-    .container-principal {
-        height: 866px;
-        background-color: #f8f8f8ff;
-        margin: 64px 15px 0 325px;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0px 6px 3px rgba(0, 0, 0, 0.2)
-    }
+.submenu li a::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* ocupa toda a área do link */
+    background: linear-gradient(
+        to right,
+        rgba(255,255,255,0.25) 0%,
+        rgba(255,255,255,0.15) 40%,
+        rgba(255,255,255,0.05) 80%,
+        rgba(255,255,255,0.0) 100%
+    );
+    opacity: 0; /* invisível inicialmente */
+    transition: opacity 0.2s ease; /* animação rápida e discreta */
+    z-index: -1; /* fica atrás do texto */
+}
 
-    .fa-angle-left{
-        font-size: 30px;
-        margin-top: 15px;
-        padding: 8px 0px 8px 8px;
-    }
+/* Hover ativa o fade */
+.submenu li a:hover::before {
+    opacity: 1;
+}
 
-    body {
-        font-family: "Roboto", "Sans-Serif";
-    }
+.secao.ativa .submenu {
+    max-height: 500px; /* altura suficiente para mostrar os itens */
+}
 
-    .cards-e-contas {
-        display: flex;
-        width: 100%;
-    }
+.menu-seta {
+    float: right;
+    transition: transform 0.3s ease;
+}
 
-    .header-contas{
-        display: flex;  
-        width: 100%;
-        height: 80px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
-        background-color: white;
-        padding: 0 25px 0px;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.2)
-        
-    }
+.icone-dashboard {
+    float: right;
+}
 
-    .lista-contas {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100% ;
-        height: 200px;
-        border-radius: 4px;
-        background-color: white;
-        margin-top: 10px;
-        box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        
-    }
-
-    .bt-add-conta {
-        position: absolute;
-        font-size: 16px;
-        font-weight: bold;
-        background-color: #023997ff;
-        color: white;
-        border-radius: 5px;
-        top: 10px;
-        right: 10px;
-        padding: 10px;
-        width: 340px;
-        border: none;
-
-        transition: 0.3s ease;
-    }
-
-    .bt-add-conta:hover{
-        background-color: #45d16ac5;
-    }
+.secao.ativa .menu-seta {
+    transform: rotate(180deg); /* gira para cima quando abre */
+}
 
 
-    .modal-container {
-        display: none;
-        position: fixed;
-        z-index: 9999;
-        left: 0; top: 0;
-        width: 100%; height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
+.container-principal {
+    height: 866px;
+    background: linear-gradient(to bottom right, #edf5ff,  #023997);  
+    margin: 64px 15px 0 325px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 6px 3px rgba(0, 0, 0, 0.2);
+}
 
-    .modal-card-contas {
-        background-color: #f8f8f8ff;
-        margin: 10% auto;
-        padding: 20px;
-        border-radius: 8px;
-        width: 400px;
-        border: 2px solid rgba(0, 0, 0, 0.2);
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    }
+.fa-angle-left{
+    font-size: 30px;
+    margin-top: 15px;
+    padding: 8px 0px 8px 8px;
+}
 
-    .form-contas {
-        margin-top: 30px;
-    }
+body {
+    font-family: "Roboto", "Sans-Serif";
+}
 
-    .form-contas label {
-        font-size: 18px;
-    }
+.cards-e-contas {
+    display: flex;
+    width: 100%;
+}
 
-    .form-contas select {
-        padding: 8px;
-        width: 100%;
-        font-size: 16px;
-        margin-bottom: 15px;
-        border-radius: 4px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        background-color: rgb(240, 240, 240);
-        transition: 0.3s ease
-    }
+.header-contas{
+    display: flex;  
+    width: 100%;
+    height: 80px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background-color: white;
+    padding: 0 25px 0px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.2);
+    position: relative;
+    
+}
 
-    .form-contas select:hover {
-        background-color: aliceblue;
-    }
+.lista-contas {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100% ;
+    height: 753px;
+    border-radius: 4px;
+    background-color: whitesmoke;
+    margin-top: 10px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    
+}
 
-    .form-contas input {
-        padding: 8px;
-        width: 100%;
-        font-size: 16px;
-        margin-bottom: 15px;
-        border-radius: 4px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-    }
+.bt-add-conta {
+    position: absolute;
+    font-size: 16px;
+    background-color: #023997ff;
+    color: white;
+    border-radius: 50px;
+    align-self: flex-start;
+    left: 260px;
+    top: 20px;
+    padding: 10px;
+    width: 40px;
+    border: none;
 
-    .form-contas button {
-        padding: 10px;
-        width: 100%;
-        font-size: 16px;
-        font-weight: bold;
-        border: none;
-        border-radius: 4px;
-        color: whitesmoke;
-        background-color: #023997ff;
-        transition: 0.3s ease;
-    }
+    transition: 0.3s ease;
+}
 
-    .form-contas button:hover {
-        background-color: rgb(9, 210, 46)
-    }
+.bt-add-conta:hover{
+    background-color: #45d16ac5;
+    cursor: pointer;
+}
 
-    .bt-fechar {
-        float: right;
-        font-size: 30px;
-        cursor: pointer;
-    }
 
-    .erro {
-        color: red;
-        font-size: 13px;
-        margin-bottom: 15px;
-        display: block;
-    }
+.modal-container {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.topo-card-contas {
+    background-color: #023997;
+    color: white;
+    padding: 15px;
+    margin: -20px -20px 20px -20px;
+    border-radius: 8px 8px 0 0;
+}
+
+.modal-card-contas {
+    background-color: #f8f8f8ff;
+    margin: 10% auto;
+    padding: 0 20px 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.form-contas label {
+    font-size: 18px;
+}
+
+.form-contas select {
+    padding: 8px;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: rgb(240, 240, 240);
+    transition: 0.3s ease
+}
+
+.form-contas select:hover {
+    background-color: aliceblue;
+}
+
+.form-contas input {
+    padding: 8px;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.form-contas button {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    color: whitesmoke;
+    background-color: #023997ff;
+    transition: 0.3s ease;
+}
+
+.form-contas button:hover {
+    background-color: rgb(9, 210, 46)
+}
+
+.bt-fechar {
+    float: right;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.erro {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.contas-usuario{
+    display: flex;
+    flex-direction: column;
+    width: 98.65%;
+}
+
+.card-conta{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 4px;
+    font-size: 18px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-left: 5px solid #023997ff;
+    background-color: #ededed;
+}
+
+.icone-conta-lixeira {
+    margin-right: 10px;
+    font-size: 20px;
+    color: rgb(207, 59, 59);
+    border: none;
+    background: none;
+}   
+
+.icone-conta-lixeira:hover{
+    cursor: pointer;
+}   
+
+.swal2-icon.icone-alerta {
+    transform: scale(0.7); /* diminui o tamanho */
+    margin: 10px 0px 0px 212px;
+}
+

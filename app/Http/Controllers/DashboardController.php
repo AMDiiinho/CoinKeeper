@@ -14,7 +14,12 @@ class DashboardController extends Controller
     }
 
     public function contas(){
+
         Auth::user();
-        return view('contas', ['bancos' => Conta::BANCOS]);
+
+        $contas = Conta::where('usuario_id', Auth::id())->get();
+        $bancos = Conta::BANCOS;
+
+        return view('contas', compact('contas', 'bancos'));
     }
 }

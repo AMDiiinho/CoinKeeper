@@ -42,6 +42,8 @@ Route::get('/contas', [DashboardController::class, 'contas'])->middleware('auth'
 
 Route::post('/contas', [ContasController::class, 'contasStore'])->middleware('auth')->name('dadosConta');
 
+Route::delete('/contas/{id}', [ContasController::class, 'contasDelete'])->middleware('auth')->name('excluiConta');
+
 
 /*
 Route::get('/usuarios', [HomeController::class, 'listarUsuarios'])->name('listaUsuarios');

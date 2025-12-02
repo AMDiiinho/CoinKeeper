@@ -56,23 +56,61 @@
     </div>
     
     <div class="container-principal">
+        
 
         <div class="header-contas">
             <h1>Minhas Contas</h1>
-            <h1>Saldo total: R$ 12,92</h1>
+            <button id="abreModal" class="bt-add-conta"><i class="fas fa-plus"></i></button>
+            @livewire('saldo-total-contas')
+            
         </div>
 
         
+
         <div class="lista-contas">
-            <button id="abreModal" class="bt-add-conta">+ Adicionar Conta</button>
-            <span class="texto-contas">Você ainda não possui contas. Clique no botão acima para registrar uma.</span>
+
+        
+            @if ($contas->isEmpty())
+                <span class="texto-contas">Você ainda não possui contas. Clique no botão acima para registrar uma.</span>
+            @else
+                <ul class="contas-usuario">
+                    @foreach($contas as $conta)
+                        <div class="card-conta">
+                            <div class="info-conta">
+                                <strong> {{ $bancos[$conta->banco] ?? $conta->banco }} </strong><br>
+                                Saldo: R$ {{ number_format($conta->saldo, 2, ',', '.') }}
+                            </div>
+
+                            <form action="{{ route('excluiConta', $conta -> id) }}" class="form-exclui-conta" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="icone-conta-lixeira">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                                    
+                        </div>
+                    @endforeach
+                </ul>
+            @endif
+            
         </div>
+        @if(session('sucesso'))
+            <meta name="alerta-sucesso" content="{{ session('sucesso') }}">
+        @endif
+
     </div>
 
     <div id="modalContainer" class="modal-container">
-        <div class="modal-card-contas">
-            <span class="bt-fechar" id="fechar">&times;</span>
-            <h2>Nova conta</h2>
+        
+        
+
+        <div class="modal-card-contas">   
+
+            <div class="topo-card-contas">
+                <span class="bt-fechar" id="fechar">&times;</span>
+                <h2>Nova conta</h2>
+            </div> 
 
             <form action= {{ route ('dadosConta') }} class="form-contas" method="POST">
                 @csrf
@@ -108,6 +146,9 @@
         });
     </script>
     @endif
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @vite('resources/js/alertas.js')
 
 </body>
 

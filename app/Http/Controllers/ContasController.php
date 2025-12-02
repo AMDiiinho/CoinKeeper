@@ -16,6 +16,14 @@ class ContasController extends Controller
             'saldo' => $request->saldo,
  
         ]);
+        session()->flash('sucesso', 'Conta criada com sucesso!');
         return redirect()->intended('contas');
+    }
+
+    function contasDelete($id){
+        $conta = Conta::findOrFail($id);
+        $conta->delete();
+
+        return redirect()->intended('contas')->with('sucesso', 'Conta excluída com sucesso!');
     }
 }
