@@ -199,6 +199,7 @@ body {
     margin: 10% auto;
     padding: 0 20px 20px;
     border-radius: 8px;
+    align-self: center;
     width: 400px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
@@ -286,6 +287,10 @@ body {
     min-height: 95px;
 }
 
+.acoes-cartao{
+    display: flex;
+}
+
 .card-cartao:hover {
     background-color: rgba(111, 177, 252, 0.08); /* azul claro hover */
 }
@@ -309,9 +314,13 @@ body {
     background: none;
 }
 
-.fa-pen {
-    margin-right: 8px;
+.icone-cartao-caneta{
+    border: none;
+    background: none;
     color: #0052D4; /* azul profundo */
+    margin-right: 10px;
+    font-size: 20px;
+    
 }
 
 .fa-pen:hover {
@@ -368,7 +377,7 @@ body {
 }
 
 
-
-
-
-
+#campoSaldo:disabled {
+    opacity: 0.5;       /* meio invisível */
+    cursor: not-allowed;
+}

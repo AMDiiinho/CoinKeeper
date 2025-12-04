@@ -48,24 +48,7 @@
 
         <div class="cards-e-contas">
             
-            <?php
-            /*
-                <div class="minhas-contas">
-                    @foreach($contas as $conta)
-                        <div class="card-conta">
-
-                            <div class="logo-info-conta">
-                                <x-logo-banco :banco="$conta->banco"/>
-                                <div class="info-conta">
-                                    <strong> {{ $bancos[$conta->banco] ?? $conta->banco }} </strong><br>
-                                    Saldo: R$ {{ number_format($conta->saldo, 2, ',', '.') }}
-                                </div>
-                            </div> 
-                        </div>
-                    @endforeach
-                </div>
-            */
-            ?>
+            
 
             <div class="grid-cards">
 

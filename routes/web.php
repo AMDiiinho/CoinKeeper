@@ -44,6 +44,8 @@ Route::post('/carteira', [CarteiraController::class, 'cartaoStore'])->middleware
 
 Route::delete('/carteira/{id}', [CarteiraController::class, 'cartaoDelete'])->middleware('auth')->name('excluiCartao');
 
+Route::patch('/carteira/{id}', [CarteiraController::class,'cartaoUpdate'])->middleware('auth')->name('atualizaCartao');
+
 
 /*
 Route::get('/usuarios', [HomeController::class, 'listarUsuarios'])->name('listaUsuarios');

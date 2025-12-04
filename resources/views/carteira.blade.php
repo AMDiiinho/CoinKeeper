@@ -88,18 +88,37 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="acoes-cartao">
+                                <form action="{{ route('atualizaCartao', $cartao -> id) }}"
+                                    class="form-atualiza-cartao" method="POST">
+                                    @csrf
+                                    @method('UPDATE')
+                                    
+                                    <button type="button" class="icone-cartao-caneta"
+                                    data-id="{{ $cartao->id }}"
+                                    data-nome="{{ $cartao->nome }}"
+                                    data-banco="{{ $cartao->banco }}"
+                                    data-tipo="{{ $cartao->tipo }}"
+                                    data-limite="{{ $cartao->limite }}"
+                                    data-saldo="{{ $cartao->saldo }}"
+                                    data-fechamento="{{ $cartao->dia_fechamento }}"
+                                    data-vencimento="{{ $cartao->dia_vencimento }}">
+                                        
+                                        <i class="fas fa-pen"></i>  
+                                    </button>
+                                </form>
 
-
-
-                            <form action="{{ route('excluiCartao', $cartao -> id) }}" 
-                                  class="form-exclui-cartao" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <i class="fas fa-pen"></i>
-                                <button type="button" class="icone-cartao-lixeira">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                                <form action="{{ route('excluiCartao', $cartao -> id) }}" 
+                                    class="form-exclui-cartao" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    
+                                    <button type="button" class="icone-cartao-lixeira">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </li>
                     @endforeach
                 </ul>
@@ -119,10 +138,10 @@
 
             <div class="topo-card-cartao">
                 <span class="bt-fechar" id="fechar">&times;</span>
-                <h2>Novo Cartão</h2>
+                <h2 id="modalTitulo">Novo Cartão</h2>
             </div> 
 
-            <form action= {{ route ('dadosCartao') }} class="form-cartao" method="POST">
+            <form id="formCartao" action="{{ route ('dadosCartao') }}" class="form-cartao" method="POST">
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -136,11 +155,13 @@
 
                 @csrf
 
+                <input type="hidden" name="_method" id="formMethod" value="POST">
+
                 <label>Nome</label><br>
-                <input type="text" placeholder="Digite um apelido para o cartão" name="nome">
+                <input type="text" id="campoNome" placeholder="Digite um apelido para o cartão" name="nome">
                 
                 <label>Banco</label><br>
-                <select name="banco">
+                <select name="banco" id="campoBanco">
                     @foreach($bancos as $valor => $label)
                         <option value="{{ $valor }}" {{ old('banco') == $valor ? 'selected' : '' }}>{{ $label }}</option>
                     @endforeach
@@ -164,21 +185,22 @@
                 <div id="limiteCartao" style="display:none;">
 
                     <label>Limite</label><br>
-                    <input type="text" placeholder="Digite o limite do cartão" name="limite">
+                    <input type="text" id="campoLimite" placeholder="Digite o limite do cartão" name="limite">
+
+                    <label>Fechamento</label><br>
+                    <input type="number" id="campoFechamento" placeholder="Informe a data de fechamento da fatura" name="fechamento">
+
+                    <label>Vencimento</label><br>
+                    <input type="number" id="campoVencimento" placeholder="Informe a data de vencimento" name="vencimento">
+
                 </div>
 
                     
                 <label>Saldo</label><br>
-                <input type="text" placeholder="Digite o saldo atual do cartão" name="saldo">
+                <input type="text" id="campoSaldo" placeholder="Informe o saldo do cartão" value="{{ $cartao->saldo ?? '' }}" name="saldo">
                 @error('saldo')
                     <small class="erro">{{ $message }}</small>
                 @enderror
-
-                <label>Fechamento</label><br>
-                <input type="number" placeholder="Informe a data de fechamento da fatura" name="fechamento">
-
-                <label>Vencimento</label><br>
-                <input type="number" placeholder="Informe a data de vencimento" name="vencimento">
 
                 <button type="submit">Salvar Cartão</button>
             </form>
