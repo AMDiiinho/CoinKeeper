@@ -47,11 +47,10 @@
     
     .cadastro-container {
         display: flex;
-        justify-content: flex-end;     /* alinha à direita */
-        align-items: center;           /* alinha verticalmente */
-        min-height: 89vh;             /* ocupa toda a altura da tela */
-        margin-top: 30px;
+        justify-content: flex-end;     /* alinha verticalmente */
+        min-height: 99vh;             /* ocupa toda a altura da tela */
         padding-right: 70px;
+        margin-top: 70px;
         box-sizing: border-box;
 }
 
@@ -63,7 +62,7 @@
         height: 630px;
         margin: 10px 40px 10px 10px;
         padding: 20px;
-        transform: scale(0.9); /* diminui o tamanho geral */
+        transform: scale(1.1);
         transform-origin: top center; /* mantém alinhado ao topo */  
         border-radius: 6px; 
         font-family: 'Roboto', 'Sans-Serif';
@@ -140,7 +139,7 @@
 
     body {
         background-color: #bdc3c7;
-
+        overflow-y: hidden;
     }       
 
     .erro-campo {

@@ -36,18 +36,21 @@
     align-items: center;           /* alinha verticalmente */
     min-height: 89vh;             /* ocupa toda a altura da tela */ 
     padding-right: 70px;         /* espaçamento da borda direita */
+    transform: scale(1.2);
+    margin-right: 120px;
     box-sizing: border-box;
 }
 
 .login-form {
     display: flex;
+    justify-content: flex-start;
     flex-direction: column;   /* empilha os inputs */
     background-color: #f1f1f1;
     width: 350px;
     min-height: 260px;
     padding: 10px;
     padding-top: 35px;
-    margin-right: 40px;    
+    margin-right: 50px;    
     border-radius: 6px; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.25);
 }
@@ -60,8 +63,9 @@
     border-radius: 4px;
     color: black;
     font-weight: bold;
+    width: 272px;
     cursor: pointer;
-    margin-left: 230px;
+    margin-left: 40px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -93,12 +97,15 @@ label {
 body {
     background-color: #bdc3c7;
     font-family: 'Roboto', sans-serif;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }   
 
 .cadastro-link {
     margin-top: 25px;
     margin-bottom: 30px;
     text-align: center;    /* centraliza dentro do card */
+    transition: 0.3s ease;
 }
 
 .cadastro-link a {
@@ -109,7 +116,6 @@ body {
 
 .cadastro-link a:hover {
     color: #45d16a;
-    font-weight: bold;
 }
 
 .erro {

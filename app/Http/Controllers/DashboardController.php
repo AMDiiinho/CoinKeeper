@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Conta;
+use App\Models\Cartao;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -10,16 +10,20 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $usuario = session('usuario');
+        //$cartoes = Cartao::where('usuario_id', Auth::id())->get();
+        //$bancos = Cartao::BANCOS;
+
         return view('dashboard', compact('usuario'));
     }
 
-    public function contas(){
+    public function carteira(){
 
         Auth::user();
 
-        $contas = Conta::where('usuario_id', Auth::id())->get();
-        $bancos = Conta::BANCOS;
+        $cartoes = Cartao::where('usuario_id', Auth::id())->get();
+        $bancos = Cartao::BANCOS;
+        $tipos = Cartao::TIPOS;
 
-        return view('contas', compact('contas', 'bancos'));
+        return view('carteira', compact('tipos','cartoes','bancos'));
     }
 }

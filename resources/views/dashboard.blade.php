@@ -18,52 +18,54 @@
 
 <body>
  
-    <header class="topo-menu-lateral"><h1>CoinKeeper</h1><h1>Bem-vindo, {{ Auth::user()->nome }}!</h1></header>
+    <header class="topo-menu-lateral"><h1>CoinKeeper</h1>
+        <div class="info-topo">
+            <h1>Dashboard</h1>
+        </div>
+    </header>
     
     <div class="menu-lateral">   
         <nav>
             <ul>
+
                 <p>Menu Principal</p>
 
-                <li>
-                    <a href="/dashboard"
-                    class="bt-menu-lateral {{ Request::is('dashboard') ? 'active' : '' }}">
-                    Dashboard <i class="fas fa-chart-bar icone-dashboard"></i>
-                    </a>
-                </li>
-
-                <li class="secao">
-                    <a href="#" class="bt-menu-lateral">Financeiro<i class="fas fa-chevron-down menu-seta"></i></a>
-                    <ul class="submenu">
-                        <li><a href="/contas">Contas</a></li>
-                        <li><a href="#">Transações</a></li>
-                        <li><a href="#">Extrato</a></li>
-                        <li><a href="#">Receitas</a></li>
-                        <li><a href="#">Despesas</a></li>
-                    </ul>
-                </li>
-                <li class="secao">
-                    <a href="#" class="bt-menu-lateral">Sistema<i class="fas fa-chevron-down menu-seta"></i></a>
-                    <ul class="submenu">
-                        <li><a href="#">Configurações</a></li>
-                    </ul>
-                </li>
-
+                <li><a href="/dashboard"class="{{ Request::is('dashboard') ? 'active' : '' }}">
+                    <i class="fas fa-chart-bar icone-dashboard"></i>Dashboard </a></li>
+                <li><a href="/carteira">Minha Carteira</a></li>
+                <li><a href="#">Transações</a></li>
+                <li><a href="#">Extrato</a></li>
+                <li><a href="#">Receitas</a></li>
+                <li><a href="#">Despesas</a></li>
+                <li><a href="#">Configurações</a></li>
+                
             </ul>
         </nav>
     </div>
+
     
     <div class="container-principal">
 
-        <div class="card-saldo">
-            <h1>Dashboard</h1><h1>Saldo Atual: R$ 0,00</h1>
-        </div>
-
         <div class="cards-e-contas">
+            
+            <?php
+            /*
+                <div class="minhas-contas">
+                    @foreach($contas as $conta)
+                        <div class="card-conta">
 
-            <div class="minhas-contas">
-                <span>minhas contas</span>
-            </div>
+                            <div class="logo-info-conta">
+                                <x-logo-banco :banco="$conta->banco"/>
+                                <div class="info-conta">
+                                    <strong> {{ $bancos[$conta->banco] ?? $conta->banco }} </strong><br>
+                                    Saldo: R$ {{ number_format($conta->saldo, 2, ',', '.') }}
+                                </div>
+                            </div> 
+                        </div>
+                    @endforeach
+                </div>
+            */
+            ?>
 
             <div class="grid-cards">
 
@@ -127,8 +129,6 @@
 
             </div>
         </div>
-    
-    @vite('resources/js/menu_lateral.js')
 
 </body>
 

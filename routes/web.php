@@ -3,7 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ContasController;
+use App\Http\Controllers\CarteiraController;
 use Faker\Guesser\Name;
 
 /*
@@ -38,11 +38,11 @@ Route::post('/login', [HomeController::class, 'logar'])->name('dadosLogin');
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware('auth');;
 
-Route::get('/contas', [DashboardController::class, 'contas'])->middleware('auth');
+Route::get('/carteira', [DashboardController::class, 'carteira'])->middleware('auth');
 
-Route::post('/contas', [ContasController::class, 'contasStore'])->middleware('auth')->name('dadosConta');
+Route::post('/carteira', [CarteiraController::class, 'cartaoStore'])->middleware('auth')->name('dadosCartao');
 
-Route::delete('/contas/{id}', [ContasController::class, 'contasDelete'])->middleware('auth')->name('excluiConta');
+Route::delete('/carteira/{id}', [CarteiraController::class, 'cartaoDelete'])->middleware('auth')->name('excluiCartao');
 
 
 /*

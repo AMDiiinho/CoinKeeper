@@ -19,3 +19,55 @@ Saldo:
 SELECT SUM(saldo_atual)
 FROM tb_contas
 WHERE usuario_id = X;
+
+
+🎯 O que poderia aparecer ao clicar em um card
+🔹 Detalhes da conta
+
+    Nome do banco (já mostrado, mas pode destacar).
+
+    Saldo atual com histórico de movimentações.
+
+    Data de criação da conta.
+
+    Última movimentação registrada.
+
+🔹 Ações rápidas
+
+    Botão para adicionar movimentação (depósito/saque).
+
+    Botão para transferir entre contas do mesmo usuário.
+
+    Botão para excluir (já existe, mas pode ficar acessível aqui também).
+
+🔹 Visualizações
+
+    Mini gráfico de evolução do saldo (linha ou barras).
+
+    Percentual de participação dessa conta no saldo total.
+
+    Comparativo com outras contas (ex.: “Essa conta representa 40% do seu patrimônio”).
+
+🔹 Experiência mais leve
+
+Se não quiser sobrecarregar, pode abrir um modal simples com:
+
+    Logo do banco.
+
+    Saldo atual.
+
+    Botão “Ver movimentações”.
+
+✅ Exemplo de fluxo
+
+    Usuário clica no card → abre modal.
+
+    Modal mostra:
+
+        Logo + nome do banco.
+
+        Saldo atual.
+
+        Últimas 5 movimentações.
+
+        Botão “Ver todas” que leva para uma página detalhada.

@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
             toast: true,
             position: 'bottom',
             icon: 'success',
+            background: '#45D16A',
+            color: '#fff',
+            iconColor: '#fff',
             title: alertaSucesso.content,
             showConfirmButton: false,
             timer: 3000,
@@ -23,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
 //ALERTA AO EXCLUIR CONTA
 document.addEventListener("DOMContentLoaded", () => {
     // Seleciona todos os formulários de deletar
-    document.querySelectorAll(".form-exclui-conta").forEach(form => {
-        form.querySelector(".icone-conta-lixeira").addEventListener("click", function (e) {
+    document.querySelectorAll(".form-exclui-cartao").forEach(form => {
+        form.querySelector(".icone-cartao-lixeira").addEventListener("click", function (e) {
             Swal.fire({
                 icon: 'warning',
                 customClass: {

@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Conta extends Model
+class Cartao extends Model
 {
     use HasFactory;
 
-    protected $table = 'tb_contas';
-    protected $fillable = ['usuario_id', 'banco' , 'saldo'];
+    protected $table = 'tb_cartoes';
+    protected $fillable = [
+        'usuario_id', 'nome', 'banco', 'tipo', 'limite', 'saldo', 'dia_fechamento', 'dia_vencimento'
+    ];
 
     const BANCOS = [
 
@@ -26,5 +28,11 @@ class Conta extends Model
         'nubank'            => 'Nubank',
         'inter'             => 'Inter'
 
+    ];
+
+    const TIPOS = [
+        'pre-pago'          => 'Pré-pago',
+        'credito'           => 'Crédito',
+        'debito'            => 'Débito'
     ];
 }

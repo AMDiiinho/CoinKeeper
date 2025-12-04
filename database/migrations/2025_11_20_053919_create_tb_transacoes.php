@@ -19,9 +19,10 @@ return new class extends Migration
                   ->constrained('tb_usuarios')
                   ->onDelete('cascade');
 
-            $table->foreignId('conta_id')
-                  ->constrained('tb_contas')
-                  ->onDelete('cascade');
+            $table->foreignId('cartao_id')
+                ->constrained('tb_cartoes')
+                ->onDelete('cascade');
+
 
             $table->foreignId('categoria_id')->nullable()
                   ->constrained('tb_categorias')

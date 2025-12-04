@@ -42,7 +42,7 @@
                 <input type="password" placeholder="Digite sua senha" name="password"></input><br>
 
 
-                <button>Entrar</button>
+                <button type="submit">Entrar</button>
 
             </form>
             <div class="cadastro-link">
