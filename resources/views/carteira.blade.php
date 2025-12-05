@@ -16,6 +16,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
 
+    @if(session('editar_cartao_id'))
+        <meta name="editar-cartao-id" content="{{ session('editar_cartao_id') }}">
+    @endif
 </head>
 
 <body>
@@ -71,7 +74,7 @@
                                     <div class="cartao-nome-tipo">
                                         <strong>{{ $cartao->nome }}</strong>
                                         <span class="tipo-cartao">
-                                            {{ $cartao->tipo_label }}
+                                            ({{ $tipos[$cartao->tipo] ?? 'Carteira' }})
                                         </span>
                                     </div>
 
@@ -133,71 +136,77 @@
     </div>
 
     <div id="modalContainer" class="modal-container">
-
         <div class="modal-card-cartao">   
-
             <div class="topo-card-cartao">
                 <span class="bt-fechar" id="fechar">&times;</span>
-                <h2 id="modalTitulo">Novo Cartão</h2>
+                <h2 id="modalTitulo">{{ session('editar_cartao_id') ? 'Editar Cartão' : 'Novo Cartão' }}</h2>
             </div> 
 
-            <form id="formCartao" action="{{ route ('dadosCartao') }}" class="form-cartao" method="POST">
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $erro)
-                                <li>{{ $erro }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+            <form id="formCartao"
+                action="{{ session('editar_cartao_id') ? route('atualizaCartao', session('editar_cartao_id')) : route('dadosCartao') }}"
+                class="form-cartao"
+                method="POST"
+                data-modo="{{ session('editar_cartao_id') ? 'edit' : 'create' }}">
 
                 @csrf
+                <input type="hidden" name="_method" id="formMethod" value="{{ session('editar_cartao_id') ? 'PATCH' : 'POST' }}">
 
-                <input type="hidden" name="_method" id="formMethod" value="POST">
-
+                <!-- Nome -->
                 <label>Nome</label><br>
                 <input type="text" id="campoNome" placeholder="Digite um apelido para o cartão" name="nome">
-                
+                @error('nome')
+                    <div class="erro">{{ $message }}</div>
+                @enderror
+                    
+                <!-- Banco -->
                 <label>Banco</label><br>
                 <select name="banco" id="campoBanco">
                     @foreach($bancos as $valor => $label)
                         <option value="{{ $valor }}" {{ old('banco') == $valor ? 'selected' : '' }}>{{ $label }}</option>
                     @endforeach
-
                 </select>
                 @error('banco')
                     <div class="erro">{{ $message }}</div>
                 @enderror
 
-                <label>Tipo do cartão</label>
-                <select name="tipo" id="tipoCartao">
-                    @foreach ($tipos as $tipo => $label)
-                        
-                        <option value="{{ $tipo }}" {{ old('tipo') == $tipo ? 'selected' : '' }}>{{ $label }}</option>
-                    @endforeach
-                </select>
-                @error('tipo')
-                    <div class="erro">{{ $message }}</div>
-                @enderror
-                
-                <div id="limiteCartao" style="display:none;">
-
+                <!-- Tipo -->
+                <div id="tipoCartaoOcultar">
+                    <label>Tipo do cartão</label>
+                    <select name="tipo" id="tipoCartao">
+                        <option value="">-- selecione --</option>
+                        @foreach ($tipos as $tipo => $label)
+                            <option value="{{ $tipo }}" {{ old('tipo') == $tipo ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                    @error('tipo')
+                        <div class="erro">{{ $message }}</div>
+                    @enderror
+                </div>
+                    
+                <!-- Campos de crédito -->
+                <div id="limiteCartao">
                     <label>Limite</label><br>
                     <input type="text" id="campoLimite" placeholder="Digite o limite do cartão" name="limite">
+                    @error('limite')
+                        <small class="erro">{{ $message }}</small>
+                    @enderror
 
                     <label>Fechamento</label><br>
                     <input type="number" id="campoFechamento" placeholder="Informe a data de fechamento da fatura" name="fechamento">
+                    @error('fechamento')
+                        <small class="erro">{{ $message }}</small>
+                    @enderror
 
                     <label>Vencimento</label><br>
                     <input type="number" id="campoVencimento" placeholder="Informe a data de vencimento" name="vencimento">
-
+                    @error('vencimento')
+                        <small class="erro">{{ $message }}</small>
+                    @enderror
                 </div>
-
-                    
+                        
+                <!-- Saldo -->
                 <label>Saldo</label><br>
-                <input type="text" id="campoSaldo" placeholder="Informe o saldo do cartão" value="{{ $cartao->saldo ?? '' }}" name="saldo">
+                <input type="text" id="campoSaldo" placeholder="Informe o saldo do cartão" name="saldo">
                 @error('saldo')
                     <small class="erro">{{ $message }}</small>
                 @enderror
@@ -207,6 +216,7 @@
         </div>
     </div>
 
+
     @if ($errors->any())
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -215,27 +225,6 @@
     </script>
     @endif
 
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const selectTipo = document.getElementById('tipoCartao');
-            const limiteField = document.getElementById('limiteCartao');
-
-            function toggleLimite() {
-                if (selectTipo.value === 'credito') {
-                    limiteField.style.display = 'block';
-                } else {
-                    limiteField.style.display = 'none';
-                }
-            }
-
-            // Executa ao carregar a página (para manter estado em caso de old input)
-            toggleLimite();
-
-            // Executa sempre que o usuário mudar o select
-            selectTipo.addEventListener('change', toggleLimite);
-        });
-    </script>
 
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

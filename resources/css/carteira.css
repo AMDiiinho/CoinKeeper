@@ -347,7 +347,7 @@ body {
 .tipo-cartao {
     font-size: 14px;
     color: #555555; /* cinza médio */
-    margin-left: 8px;
+    margin-left: 3px;
 }
 
 .cartao-limite {
@@ -377,7 +377,18 @@ body {
 }
 
 
-#campoSaldo:disabled {
+#campoSaldo:read-only {
     opacity: 0.5;       /* meio invisível */
     cursor: not-allowed;
 }
+
+
+.form-cartao input:disabled,
+.form-cartao select:disabled,
+.form-cartao input:read-only {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+

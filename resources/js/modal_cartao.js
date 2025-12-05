@@ -1,93 +1,121 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.querySelector('#modalContainer');
+    const form = document.querySelector('#formCartao');
+    const formMethod = document.querySelector('#formMethod');
+    const titulo = document.querySelector('#modalTitulo');
 
-    function toggleCamposCredito(tipo) {
-        const divLimite = document.querySelector('#limiteCartao');
-        if (tipo === 'credito') {
-            divLimite.style.display = 'block';
+    const campoNome = document.querySelector('#campoNome');
+    const campoBanco = document.querySelector('#campoBanco');
+    const tipoSelect = document.querySelector('#tipoCartao');
+    const campoLimite = document.querySelector('#campoLimite');
+    const campoFechamento = document.querySelector('#campoFechamento');
+    const campoVencimento = document.querySelector('#campoVencimento');
+    const campoSaldo = document.querySelector('#campoSaldo');
+
+    const isEditMode = () => formMethod.value === 'PATCH';
+
+    function applyCreateState() {
+        const banco = campoBanco.value, tipo = tipoSelect.value;
+        campoSaldo.readOnly = false;
+
+        // Banco e Tipo devem estar habilitados na criação
+        campoBanco.disabled = false;
+        tipoSelect.disabled = false;
+
+        if (banco === 'carteira') {
+            tipoSelect.disabled = true;
+            tipoSelect.value = ''; // força vazio
+            [campoLimite, campoFechamento, campoVencimento].forEach(c => {
+                c.value = '';
+                c.disabled = true;
+            });
         } else {
-            divLimite.style.display = 'none';
+            if (tipo === 'credito') {
+                [campoLimite, campoFechamento, campoVencimento].forEach(c => c.disabled = false);
+            } else {
+                [campoLimite, campoFechamento, campoVencimento].forEach(c => {
+                    c.value = '';
+                    c.disabled = true;
+                });
+            }
         }
     }
 
-    // Botão de criação
-    const btAdd = document.querySelector('.bt-add-cartao');
-    if (btAdd) {
-        btAdd.addEventListener('click', function() {
-            const modal = document.querySelector('#modalContainer');
-            const form = document.querySelector('#formCartao');
 
-            document.querySelector('#modalTitulo').innerText = 'Novo Cartão';
-            form.action = '/carteira';
-            document.querySelector('#formMethod').value = 'POST';
+    function applyEditState() {
+        // Nome pode ser alterado
+        campoNome.readOnly = false;
 
-            form.reset();
-            toggleCamposCredito(''); // esconde campos de crédito
+        // Banco e Tipo bloqueados
+        campoBanco.disabled = true;
+        tipoSelect.disabled = true;
 
-            const campoSaldo = document.querySelector('#campoSaldo');
-            campoSaldo.value = '';
-            campoSaldo.disabled = false;
+        // Saldo bloqueado
+        campoSaldo.readOnly = true;
 
-            modal.style.display = 'block';
-        });
+        // Campos de crédito
+        if (tipoSelect.value === 'credito') {
+            [campoLimite, campoFechamento, campoVencimento].forEach(c => {
+                c.readOnly = false;   // editáveis
+                c.disabled = false;   // garantir que não fiquem desabilitados
+            });
+        } else {
+            [campoLimite, campoFechamento, campoVencimento].forEach(c => {
+                c.value = '';
+                c.readOnly = true;    // bloqueados
+                c.disabled = false;   // não usar disabled, só readOnly
+            });
+        }
     }
+
+
+
+
+    // Botão de criação
+    document.querySelector('.bt-add-cartao')?.addEventListener('click', () => {
+        titulo.innerText = 'Novo Cartão';
+        form.action = '/carteira';
+        formMethod.value = 'POST';
+        form.reset();
+        applyCreateState();
+        modal.style.display = 'block';
+    });
 
     // Botão de edição
     document.querySelectorAll('.icone-cartao-caneta').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const id = this.dataset.id;
-            const nome = this.dataset.nome;
-            const banco = this.dataset.banco;
-            const tipo = this.dataset.tipo;
-            const limite = this.dataset.limite;
-            const fechamento = this.dataset.fechamento;
-            const vencimento = this.dataset.vencimento;
-            const saldo = this.dataset.saldo;
+        btn.addEventListener('click', () => {
+            titulo.innerText = 'Editar Cartão';
+            form.action = '/carteira/' + btn.dataset.id;
+            formMethod.value = 'PATCH';
 
-            const modal = document.querySelector('#modalContainer');
-            const form = document.querySelector('#formCartao');
+            campoNome.value = btn.dataset.nome;
+            campoBanco.value = btn.dataset.banco;
+            tipoSelect.value = btn.dataset.tipo;
+            campoLimite.value = btn.dataset.limite;
+            campoFechamento.value = btn.dataset.fechamento;
+            campoVencimento.value = btn.dataset.vencimento;
+            campoSaldo.value = btn.dataset.saldo;
 
-            document.querySelector('#modalTitulo').innerText = 'Editar Cartão';
-            form.action = '/carteira/' + id;
-            document.querySelector('#formMethod').value = 'PATCH';
-
-            document.querySelector('#campoNome').value = nome;
-            document.querySelector('#campoBanco').value = banco;
-            document.querySelector('#tipoCartao').value = tipo;
-            document.querySelector('#campoLimite').value = limite;
-            document.querySelector('#campoFechamento').value = fechamento;
-            document.querySelector('#campoVencimento').value = vencimento;
-
-            toggleCamposCredito(tipo); // mostra/esconde conforme tipo
-
-            const campoSaldo = document.querySelector('#campoSaldo');
-            campoSaldo.value = saldo;
-            campoSaldo.disabled = true;
-
+            applyEditState();
             modal.style.display = 'block';
         });
     });
 
-    // Atualiza dinamicamente se o usuário trocar o tipo no select
-    const tipoSelect = document.querySelector('#tipoCartao');
-    if (tipoSelect) {
-        tipoSelect.addEventListener('change', function() {
-            toggleCamposCredito(this.value);
+    // Dinâmica de selects
+    campoBanco.addEventListener('change', () => isEditMode() ? applyEditState() : applyCreateState());
+    tipoSelect.addEventListener('change', () => isEditMode() ? applyEditState() : applyCreateState());
 
-            if (this.value === 'debito' || 'pre-pago') {
-            // limpa os campos de crédito
-            document.querySelector('#campoLimite').value = '';
-            document.querySelector('#campoFechamento').value = '';
-            document.querySelector('#campoVencimento').value = '';
-        }
-        });
+    // Fechar modal
+    document.querySelector('#fechar')?.addEventListener('click', () => {
+        modal.style.display = 'none';
+        document.querySelectorAll('.erro').forEach(el => el.remove());
+    });
+
+
+    // Reabrir modal com erros
+    const metaEditar = document.querySelector('meta[name="editar-cartao-id"]');
+    if (metaEditar) {
+        document.querySelector(`.icone-cartao-caneta[data-id="${metaEditar.content}"]`)?.click();
     }
 
-    // Botão fechar
-    const fechar = document.querySelector('#fechar');
-    if (fechar) {
-        fechar.addEventListener('click', function() {
-            document.querySelector('#modalContainer').style.display = 'none';
-        });
-    }
 });
-

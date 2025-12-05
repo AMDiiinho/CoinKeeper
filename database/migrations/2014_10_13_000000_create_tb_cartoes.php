@@ -25,7 +25,7 @@ return new class extends Migration
 
             $table->string('nome')->nullable();
             $table->string('banco');
-            $table->enum('tipo', ['credito', 'debito', 'pre-pago']);
+            $table->enum('tipo', ['credito', 'debito', 'pre-pago'])->nullable();
             $table->decimal('limite', 10, 2)->nullable();
             $table->decimal('saldo', 10, 2)->default(0);
             $table->unsignedTinyInteger('dia_fechamento')->nullable();
