@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Cartao;
 
 class CartaoRequest extends FormRequest
 {
@@ -49,9 +50,10 @@ class CartaoRequest extends FormRequest
         }
 
         if ($this->isMethod('patch')) {
+            $cartao = Cartao::find($this->route('id'));
             // Edição
             // Banco e tipo não são exigidos (frontend bloqueia)
-            if ($this->input('tipo') === 'credito') {
+            if ($cartao->tipo === 'credito') {
                 $rules['limite']     = 'required|numeric|min:0';
                 $rules['fechamento'] = 'required|integer|min:1|max:31';
                 $rules['vencimento'] = 'required|integer|min:1|max:31';

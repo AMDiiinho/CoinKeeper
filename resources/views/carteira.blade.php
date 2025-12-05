@@ -170,18 +170,23 @@
                 @enderror
 
                 <!-- Tipo -->
-                <div id="tipoCartaoOcultar">
-                    <label>Tipo do cartão</label>
+                <label>Tipo do cartão</label>
+                @if(session('editar_cartao_id'))
+                    <select id="tipoCartao" disabled>
+                        @foreach ($tipos as $tipo => $label)
+                            <option value="{{ $tipo }}" {{ $cartao->tipo == $tipo ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="tipo" value="{{ $cartao->tipo }}">
+                @else
                     <select name="tipo" id="tipoCartao">
                         <option value="">-- selecione --</option>
                         @foreach ($tipos as $tipo => $label)
                             <option value="{{ $tipo }}" {{ old('tipo') == $tipo ? 'selected' : '' }}>{{ $label }}</option>
                         @endforeach
                     </select>
-                    @error('tipo')
-                        <div class="erro">{{ $message }}</div>
-                    @enderror
-                </div>
+                @endif
+        
                     
                 <!-- Campos de crédito -->
                 <div id="limiteCartao">

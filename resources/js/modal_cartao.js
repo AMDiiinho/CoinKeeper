@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function applyCreateState() {
         const banco = campoBanco.value, tipo = tipoSelect.value;
-        campoSaldo.readOnly = false;
+        campoSaldo.readOnly = false;    
 
         // Banco e Tipo devem estar habilitados na criação
         campoBanco.disabled = false;
@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } else {
             if (tipo === 'credito') {
+                [campoLimite, campoFechamento, campoVencimento].forEach(c => c.readOnly = false);
                 [campoLimite, campoFechamento, campoVencimento].forEach(c => c.disabled = false);
             } else {
                 [campoLimite, campoFechamento, campoVencimento].forEach(c => {
