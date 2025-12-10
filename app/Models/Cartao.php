@@ -10,9 +10,7 @@ class Cartao extends Model
     use HasFactory;
 
     protected $table = 'tb_cartoes';
-    protected $fillable = [
-        'usuario_id', 'nome', 'banco', 'tipo', 'limite', 'saldo', 'dia_fechamento', 'dia_vencimento'
-    ];
+    protected $fillable = ['usuario_id', 'nome', 'banco', 'tipo', 'limite', 'saldo', 'dia_fechamento', 'dia_vencimento'];
 
     const BANCOS = [
 

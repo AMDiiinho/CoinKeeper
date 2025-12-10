@@ -18,19 +18,36 @@
 }
 
 .topo-menu-lateral {
+    display: flex;
     position: fixed;
     top: 0;
-    border-bottom: 4px solid #3A3A4F;
-    width: 100%;
+    left: 0;
     height: 64px;
-    font-size: 12px;
-    padding-left: 20px;
-    background-color: #1C1C2E; /* topo escuro */
-    color: #F5F7FA; /* texto claro */
+    width: 100%;
     z-index: 9999;
+}
+
+.logo-topo {
+    width: 310px; /* mesma largura da barra lateral */
+    background-color: #1E1E2F;
+    color: #F5F5F5;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    border-right: 4px solid #3A3A4F;
+    border-bottom: 4px solid #3A3A4F;
+    font-size: 16px;
+}
+
+.info-topo {
+    flex: 1; /* ocupa o restante da tela */
+    background-color: #1E1E2F;
+    color: #F5F5F5;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 25px;
+    border-bottom: 4px solid #3A3A4F;
 }
 
 .menu-lateral ul {
@@ -109,19 +126,6 @@ body {
     width: 100%;
 }
 
-.info-topo {
-    display: flex;
-    height: 68px;
-    width: 84.4%;
-    border-bottom: 4px solid #3A3A4F;
-    border-left: 4px solid #3A3A4F;
-    border-radius: 4px;
-    background-color: #1C1C2E;
-    color: #F5F7FA;
-    padding: 0 25px;
-    align-items: center;
-    justify-content: space-between;
-}
 
 .grid-cards {
     display: grid;
