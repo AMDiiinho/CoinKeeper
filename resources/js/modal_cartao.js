@@ -1,122 +1,79 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.querySelector('#modalContainer');
-    const form = document.querySelector('#formCartao');
-    const formMethod = document.querySelector('#formMethod');
-    const titulo = document.querySelector('#modalTitulo');
+    // --- Lógica Modal Criar ---
+    const modalCreate = document.getElementById('modalCreate');
+    const createBanco = document.getElementById('createBanco');
+    const createTipo = document.getElementById('createTipo');
+    const divTipoCreate = document.getElementById('divTipoCreate');
+    const camposCreditoCreate = document.getElementById('camposCreditoCreate');
+    
 
-    const campoNome = document.querySelector('#campoNome');
-    const campoBanco = document.querySelector('#campoBanco');
-    const tipoSelect = document.querySelector('#tipoCartao');
-    const campoLimite = document.querySelector('#campoLimite');
-    const campoFechamento = document.querySelector('#campoFechamento');
-    const campoVencimento = document.querySelector('#campoVencimento');
-    const campoSaldo = document.querySelector('#campoSaldo');
-
-    const isEditMode = () => formMethod.value === 'PATCH';
-
-    function applyCreateState() {
-        const banco = campoBanco.value, tipo = tipoSelect.value;
-        campoSaldo.readOnly = false;    
-
-        // Banco e Tipo devem estar habilitados na criação
-        campoBanco.disabled = false;
-        tipoSelect.disabled = false;
-
-        if (banco === 'carteira') {
-            tipoSelect.disabled = true;
-            tipoSelect.value = ''; // força vazio
-            [campoLimite, campoFechamento, campoVencimento].forEach(c => {
-                c.value = '';
-                c.disabled = true;
-            });
-        } else {
-            if (tipo === 'credito') {
-                [campoLimite, campoFechamento, campoVencimento].forEach(c => c.readOnly = false);
-                [campoLimite, campoFechamento, campoVencimento].forEach(c => c.disabled = false);
-            } else {
-                [campoLimite, campoFechamento, campoVencimento].forEach(c => {
-                    c.value = '';
-                    c.disabled = true;
-                });
-            }
-        }
-    }
-
-
-    function applyEditState() {
-        // Nome pode ser alterado
-        campoNome.readOnly = false;
-
-        // Banco e Tipo bloqueados
-        campoBanco.disabled = true;
-        tipoSelect.disabled = true;
-
-        // Saldo bloqueado
-        campoSaldo.readOnly = true;
-
-        // Campos de crédito
-        if (tipoSelect.value === 'credito') {
-            [campoLimite, campoFechamento, campoVencimento].forEach(c => {
-                c.readOnly = false;   // editáveis
-                c.disabled = false;   // garantir que não fiquem desabilitados
-            });
-        } else {
-            [campoLimite, campoFechamento, campoVencimento].forEach(c => {
-                c.value = '';
-                c.readOnly = true;    // bloqueados
-                c.disabled = false;   // não usar disabled, só readOnly
-            });
-        }
-    }
-
-
-
-
-    // Botão de criação
+    // Botão abrir modal criar
     document.querySelector('.bt-add-cartao')?.addEventListener('click', () => {
-        titulo.innerText = 'Novo Cartão';
-        form.action = '/carteira';
-        formMethod.value = 'POST';
-        form.reset();
-        applyCreateState();
-        modal.style.display = 'block';
+        modalCreate.style.display = 'block';
     });
 
-    // Botão de edição
+    // Lógica visual do Create (Carteira vs Banco)
+    createBanco.addEventListener('change', (e) => {
+        if (e.target.value === 'carteira') {
+            divTipoCreate.style.display = 'none';
+            camposCreditoCreate.style.display = 'none';
+            createTipo.value = ''; 
+        } else {
+            divTipoCreate.style.display = 'block';
+        }
+    });
+
+    createTipo.addEventListener('change', (e) => {
+        if (e.target.value === 'credito') {
+            camposCreditoCreate.style.display = 'block';
+        } else {
+            camposCreditoCreate.style.display = 'none';
+        }
+    });
+
+
+    // --- Lógica Modal Editar ---
+    const modalEdit = document.getElementById('modalEdit');
+    const formEdit = document.getElementById('formEdit'); 
+    const camposCreditoEdit = document.getElementById('camposCreditoEdit');
+
     document.querySelectorAll('.icone-cartao-caneta').forEach(btn => {
         btn.addEventListener('click', () => {
-            titulo.innerText = 'Editar Cartão';
-            form.action = '/carteira/' + btn.dataset.id;
-            formMethod.value = 'PATCH';
+            const data = btn.dataset;
 
-            campoNome.value = btn.dataset.nome;
-            campoBanco.value = btn.dataset.banco;
-            tipoSelect.value = btn.dataset.tipo;
-            campoLimite.value = btn.dataset.limite;
-            campoFechamento.value = btn.dataset.fechamento;
-            campoVencimento.value = btn.dataset.vencimento;
-            campoSaldo.value = btn.dataset.saldo;
+        
+            formEdit.action = `/carteira/${data.id}`; 
+            
+            // Preencher campos
+            document.getElementById('editNome').value = data.nome;
+            document.getElementById('editBancoVisual').value = data.banco;
+            document.getElementById('editTipoVisual').value = data.tipo;
+            document.getElementById('editSaldoVisual').value = data.saldo; 
 
-            applyEditState();
-            modal.style.display = 'block';
+            // Lógica de campos de crédito no Edit
+            if (data.tipo === 'credito') {
+                camposCreditoEdit.style.display = 'block'; 
+                document.getElementById('editLimite').value = data.limite;
+                document.getElementById('editFechamento').value = data.fechamento;
+                document.getElementById('editVencimento').value = data.vencimento;
+            } else {
+                camposCreditoEdit.style.display = 'none';
+            }
+
+            modalEdit.style.display = 'block';
         });
     });
 
-    // Dinâmica de selects
-    campoBanco.addEventListener('change', () => isEditMode() ? applyEditState() : applyCreateState());
-    tipoSelect.addEventListener('change', () => isEditMode() ? applyEditState() : applyCreateState());
 
-    // Fechar modal
-    document.querySelector('#fechar')?.addEventListener('click', () => {
-        modal.style.display = 'none';
-        document.querySelectorAll('.erro').forEach(el => el.remove());
+    // --- Lógica Global (Fechar Modais) ---
+    document.querySelectorAll('.fechar-modal').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelector(btn.dataset.target).style.display = 'none';
+        });
     });
 
-
-    // Reabrir modal com erros
-    const metaEditar = document.querySelector('meta[name="editar-cartao-id"]');
-    if (metaEditar) {
-        document.querySelector(`.icone-cartao-caneta[data-id="${metaEditar.content}"]`)?.click();
-    }
-
+    // Reabrir modal se houver erro de validação (Backend Flash)
+    // O Laravel vai injetar um script se houver erro numa Bag específica
+    
+    
 });

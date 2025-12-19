@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-// CRIAR CONTA SUCESSO
+// CRIAR CARTÃO SUCESSO
 document.addEventListener("DOMContentLoaded", () => {
     const alertaSucesso = document.querySelector('meta[name="alerta-sucesso"]');
     if (alertaSucesso) {
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-//ALERTA AO EXCLUIR CONTA
+//ALERTA AO EXCLUIR CARTÃO
 document.addEventListener("DOMContentLoaded", () => {
     // Seleciona todos os formulários de deletar
     document.querySelectorAll(".form-exclui-cartao").forEach(form => {
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 customClass: {
                     icon: 'icone-alerta'
                 },
-                title: 'Excluir conta?',
+                title: 'Excluir cartão?',
                 text: "Essa ação não poderá ser desfeita!",
                 showCancelButton: true,
                 confirmButtonColor: '#d33',

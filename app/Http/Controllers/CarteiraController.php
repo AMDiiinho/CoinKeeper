@@ -16,8 +16,8 @@ class CarteiraController extends Controller
             'tipo'           => $request->input('tipo'),
             'limite'         => $request->input('limite'),
             'saldo'          => $request->input('saldo'),
-            'dia_fechamento' => $request->input('fechamento'),
-            'dia_vencimento' => $request->input('vencimento'),
+            'dia_fechamento' => $request->input('dia_fechamento'),
+            'dia_vencimento' => $request->input('dia_vencimento'),
         ]);
 
         session()->flash('sucesso', 'Cartao criado com sucesso!');
@@ -35,20 +35,7 @@ class CarteiraController extends Controller
     {
         $cartao = Cartao::findOrFail($id);
 
-        $dados = $request->validated();
-
-        // Ajusta nomes para bater com colunas da tabela
-        if (isset($dados['fechamento'])) {
-            $dados['dia_fechamento'] = $dados['fechamento'];
-            unset($dados['fechamento']);
-        }
-
-        if (isset($dados['vencimento'])) {
-            $dados['dia_vencimento'] = $dados['vencimento'];
-            unset($dados['vencimento']);
-        }
-
-        $cartao->update($dados);
+        $cartao->update($request->validated());
 
         return redirect()->back()->with('sucesso', 'Cartão atualizado!');
     }

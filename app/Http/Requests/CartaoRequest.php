@@ -27,8 +27,8 @@ class CartaoRequest extends FormRequest
             'nome'       => 'required|string|max:40',
             'limite'     => 'nullable|numeric|min:0',
             'saldo'      => 'nullable|numeric|min:0',
-            'fechamento' => 'nullable|integer|min:1|max:31',
-            'vencimento' => 'nullable|integer|min:1|max:31',
+            'dia_fechamento' => 'nullable|integer|min:1|max:31',
+            'dia_vencimento' => 'nullable|integer|min:1|max:31',
         ];
 
         if ($this->isMethod('post')) {
@@ -41,8 +41,8 @@ class CartaoRequest extends FormRequest
 
                 if ($this->input('tipo') === 'credito') {
                     $rules['limite']     = 'required|numeric|min:0';
-                    $rules['fechamento'] = 'required|integer|min:1|max:31';
-                    $rules['vencimento'] = 'required|integer|min:1|max:31';
+                    $rules['dia_fechamento'] = 'required|integer|min:1|max:31';
+                    $rules['dia_vencimento'] = 'required|integer|min:1|max:31';
                 }
             }
 
@@ -51,12 +51,14 @@ class CartaoRequest extends FormRequest
 
         if ($this->isMethod('patch')) {
             $cartao = Cartao::find($this->route('id'));
-            // Edição
-            // Banco e tipo não são exigidos (frontend bloqueia)
+
+            $rules['banco'] = 'prohibited';
+            $rules['tipo']  = 'prohibited';
+
             if ($cartao->tipo === 'credito') {
                 $rules['limite']     = 'required|numeric|min:0';
-                $rules['fechamento'] = 'required|integer|min:1|max:31';
-                $rules['vencimento'] = 'required|integer|min:1|max:31';
+                $rules['dia_fechamento'] = 'required|integer|min:1|max:31';
+                $rules['dia_vencimento'] = 'required|integer|min:1|max:31';
             }
         }
 
@@ -73,10 +75,17 @@ class CartaoRequest extends FormRequest
 
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
+        // Define qual "sacola" de erros usar baseado no verbo HTTP
+        $errorBag = $this->isMethod('post') ? 'create' : 'edit';
+
         $response = redirect()->back()
-            ->withErrors($validator)
-            ->withInput()
-            ->with('editar_cartao_id', $this->route('id')); // pega o id da rota
+            ->withErrors($validator, $errorBag) // Segundo parametro é a bag
+            ->withInput();
+
+        // Se for edição, precisamos persistir o ID para o JS saber qual URL montar
+        if ($this->isMethod('patch')) {
+            session()->flash('editar_cartao_id', $this->route('id'));
+        }
 
         throw new \Illuminate\Validation\ValidationException($validator, $response);
     }

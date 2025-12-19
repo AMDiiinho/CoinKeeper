@@ -26,8 +26,7 @@
     <x-menu-topo topoInfo="Minha Carteira"/>
     
     <x-menu-lateral/>
-        
-    
+
     <div class="container-principal">
         
 
@@ -74,24 +73,19 @@
                             </div>
                             
                             <div class="acoes-cartao">
-                                <form action="{{ route('atualizaCartao', $cartao -> id) }}"
-                                    class="form-atualiza-cartao" method="POST">
-                                    @csrf
-                                    @method('UPDATE')
-                                    
+
                                     <button type="button" class="icone-cartao-caneta"
-                                    data-id="{{ $cartao->id }}"
-                                    data-nome="{{ $cartao->nome }}"
-                                    data-banco="{{ $cartao->banco }}"
-                                    data-tipo="{{ $cartao->tipo }}"
-                                    data-limite="{{ $cartao->limite }}"
-                                    data-saldo="{{ $cartao->saldo }}"
-                                    data-fechamento="{{ $cartao->dia_fechamento }}"
-                                    data-vencimento="{{ $cartao->dia_vencimento }}">
+                                        data-id="{{ $cartao->id }}"
+                                        data-nome="{{ $cartao->nome }}"
+                                        data-banco="{{ $cartao->banco }}"
+                                        data-tipo="{{ $cartao->tipo }}"
+                                        data-limite="{{ $cartao->limite }}"
+                                        data-saldo="{{ $cartao->saldo }}"
+                                        data-fechamento="{{ $cartao->dia_fechamento }}"
+                                        data-vencimento="{{ $cartao->dia_vencimento }}">
                                         
                                         <i class="fas fa-pen"></i>  
                                     </button>
-                                </form>
 
                                 <form action="{{ route('excluiCartao', $cartao -> id) }}" 
                                     class="form-exclui-cartao" method="POST">
@@ -116,101 +110,123 @@
 
     </div>
 
-    <div id="modalContainer" class="modal-container">
-        <div class="modal-card-cartao">   
+    <div id="modalCreate" class="modal-container" style="display: none;" data-show-error="{{ $errors->create->any() ? 'true' : 'false' }}">
+        <div class="modal-card-cartao">
             <div class="topo-card-cartao">
-                <span class="bt-fechar" id="fechar">&times;</span>
-                <h2 id="modalTitulo">{{ session('editar_cartao_id') ? 'Editar Cartão' : 'Novo Cartão' }}</h2>
-            </div> 
+                <span class="bt-fechar fechar-modal" data-target="#modalCreate">&times;</span>
+                <h2>Novo Cartão</h2>
+            </div>
 
-            <form id="formCartao"
-                action="{{ session('editar_cartao_id') ? route('atualizaCartao', session('editar_cartao_id')) : route('dadosCartao') }}"
-                class="form-cartao"
-                method="POST"
-                data-modo="{{ session('editar_cartao_id') ? 'edit' : 'create' }}">
-
+            <form action="{{ route('dadosCartao') }}" method="POST" class="form-cartao">
                 @csrf
-                <input type="hidden" name="_method" id="formMethod" value="{{ session('editar_cartao_id') ? 'PATCH' : 'POST' }}">
+                
+                <label>Nome</label>
+                <input type="text" name="nome" value="{{ old('nome') }}" placeholder="Apelido do cartão">
+                @error('nome', 'create') <div class="erro">{{ $message }}</div> @enderror
 
-                <!-- Nome -->
-                <label>Nome</label><br>
-                <input type="text" id="campoNome" placeholder="Digite um apelido para o cartão" name="nome">
-                @error('nome')
-                    <div class="erro">{{ $message }}</div>
-                @enderror
-                    
-                <!-- Banco -->
-                <label>Banco</label><br>
-                <select name="banco" id="campoBanco">
+                <label>Banco</label>
+                <select name="banco" id="createBanco">
+                    <option value="">Selecione...</option>
                     @foreach($bancos as $valor => $label)
                         <option value="{{ $valor }}" {{ old('banco') == $valor ? 'selected' : '' }}>{{ $label }}</option>
                     @endforeach
                 </select>
-                @error('banco')
-                    <div class="erro">{{ $message }}</div>
-                @enderror
+                @error('banco', 'create') <div class="erro">{{ $message }}</div> @enderror
 
-                <!-- Tipo -->
-                <label>Tipo do cartão</label>
-                @if(session('editar_cartao_id'))
-                    <select id="tipoCartao" disabled>
-                        @foreach ($tipos as $tipo => $label)
-                            <option value="{{ $tipo }}" {{ $cartao->tipo == $tipo ? 'selected' : '' }}>{{ $label }}</option>
-                        @endforeach
-                    </select>
-                    <input type="hidden" name="tipo" value="{{ $cartao->tipo }}">
-                @else
-                    <select name="tipo" id="tipoCartao">
-                        <option value="">-- selecione --</option>
+                <div id="divTipoCreate">
+                    <label>Tipo</label>
+                    <select name="tipo" id="createTipo">
+                        <option value="">Selecione...</option>
                         @foreach ($tipos as $tipo => $label)
                             <option value="{{ $tipo }}" {{ old('tipo') == $tipo ? 'selected' : '' }}>{{ $label }}</option>
                         @endforeach
                     </select>
-                @endif
-        
-                    
-                <!-- Campos de crédito -->
-                <div id="limiteCartao">
-                    <label>Limite</label><br>
-                    <input type="text" id="campoLimite" placeholder="Digite o limite do cartão" name="limite">
-                    @error('limite')
-                        <small class="erro">{{ $message }}</small>
-                    @enderror
-
-                    <label>Fechamento</label><br>
-                    <input type="number" id="campoFechamento" placeholder="Informe a data de fechamento da fatura" name="fechamento">
-                    @error('fechamento')
-                        <small class="erro">{{ $message }}</small>
-                    @enderror
-
-                    <label>Vencimento</label><br>
-                    <input type="number" id="campoVencimento" placeholder="Informe a data de vencimento" name="vencimento">
-                    @error('vencimento')
-                        <small class="erro">{{ $message }}</small>
-                    @enderror
+                    @error('tipo', 'create') <div class="erro">{{ $message }}</div> @enderror
                 </div>
-                        
-                <!-- Saldo -->
-                <label>Saldo</label><br>
-                <input type="text" id="campoSaldo" placeholder="Informe o saldo do cartão" name="saldo">
-                @error('saldo')
-                    <small class="erro">{{ $message }}</small>
-                @enderror
 
-                <button type="submit">Salvar Cartão</button>
+                <div id="camposCreditoCreate" style="display: none;">
+                    <label>Limite</label>
+                    <input type="text" name="limite" value="{{ old('limite') }}">
+                    @error('limite', 'create') <small class="erro">{{ $message }}</small> @enderror
+
+                    <label>Fechamento</label>
+                    <input type="number" name="dia_fechamento" value="{{ old('dia_fechamento') }}">
+                    @error('dia_fechamento', 'create') <small class="erro">{{ $message }}</small> @enderror
+
+                    <label>Vencimento</label>
+                    <input type="number" name="dia_vencimento" value="{{ old('dia_vencimento') }}">
+                    @error('dia_vencimento', 'create') <small class="erro">{{ $message }}</small> @enderror
+                </div>
+
+                <label>Saldo Inicial</label>
+                <input type="text" name="saldo" value="{{ old('saldo') }}">
+                @error('saldo', 'create') <small class="erro">{{ $message }}</small> @enderror
+
+                <button type="submit">Criar Cartão</button>
             </form>
         </div>
     </div>
 
+    <div id="modalEdit" class="modal-container" style="display: none;" data-show-error="{{ $errors->edit->any() ? 'true' : 'false' }}"
+    data-edit-id="{{ session('editar_cartao_id') }}">
+        <div class="modal-card-cartao">
+            <div class="topo-card-cartao">
+                <span class="bt-fechar fechar-modal" data-target="#modalEdit">&times;</span>
+                <h2>Editar Cartão</h2>
+            </div>
 
-    @if ($errors->any())
+            <form id="formEdit" method="POST" class="form-cartao">
+                @csrf
+                @method('PATCH')
+                
+                <label>Nome</label>
+                <input type="text" name="nome" id="editNome" value="{{ old('nome') }}">
+                @error('nome', 'edit') <div class="erro">{{ $message }}</div> @enderror
+
+                <label>Banco</label>
+                <input type="text" id="editBancoVisual" disabled style="background: #eee;">
+                
+                <label>Tipo</label>
+                <input type="text" id="editTipoVisual" disabled style="background: #eee;">
+
+                <div id="camposCreditoEdit" style="display: none;">
+                    <label>Limite</label>
+                    <input type="text" name="limite" id="editLimite" value="{{ old('limite') }}">
+                    @error('limite', 'edit') <small class="erro">{{ $message }}</small> @enderror
+
+                    <label>Dia Fechamento</label>
+                    <input type="number" name="dia_fechamento" id="editFechamento" value="{{ old('dia_fechamento') }}">
+                    @error('dia_fechamento', 'edit') <small class="erro">{{ $message }}</small> @enderror
+
+                    <label>Dia Vencimento</label>
+                    <input type="number" name="dia_vencimento" id="editVencimento" value="{{ old('dia_vencimento') }}">
+                    @error('dia_vencimento', 'edit') <small class="erro">{{ $message }}</small> @enderror
+                </div>
+
+                <label>Saldo Atual</label>
+                <input type="text" id="editSaldoVisual" disabled style="background: #eee;">
+
+                <button type="submit">Atualizar Cartão</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("modalContainer").style.display = "block";
-        });
-    </script>
-    @endif
+        @if($errors->create->any())
+            modalCreate.style.display = 'block';
+            // Disparar change events se necessário para reexibir campos ocultos baseado no old()
+            // (Exemplo simplificado, pode precisar refinar para manter selects abertos)
+            if("{{ old('banco') }}" !== 'carteira') divTipoCreate.style.display = 'block';
+            if("{{ old('tipo') }}" === 'credito') camposCreditoCreate.style.display = 'block';
+        @endif
 
+        @if($errors->edit->any())
+            modalEdit.style.display = 'block';
+            // Precisamos re-popular o action do form caso falhe, 
+            // ou usar a sessão 'editar_cartao_id' como você já fazia.
+            // Recomendo passar o ID na sessão flash para re-montar a URL
+        @endif
+    </script>
 
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
