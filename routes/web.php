@@ -17,6 +17,14 @@ use Faker\Guesser\Name;
 |
 */
 
+/*
+    ====================================================================================================
+
+        ROTAS REFERENTES À TELA INICIAL DA APLICAÇÃO, ANTES DO LOGIN
+
+    ====================================================================================================
+*/
+
 
 Route::get('/', function () { return redirect('/home'); });
 
@@ -33,18 +41,46 @@ Route::post('/login', [HomeController::class, 'logar'])->name('dadosLogin');
 
 
 
+/*
+    ====================================================================================================
+
+        ROTAS REFERENTES AO DASHBOARD
+
+    ====================================================================================================
+*/
 
 
-
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware('auth');;
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 
 Route::get('/carteira', [DashboardController::class, 'carteira'])->middleware('auth');
+
+Route::get('/transacoes', [DashboardController::class, 'transacoes'])->middleware('auth');
+
+
+/*
+    ====================================================================================================
+
+        ROTAS REFERENTES À TELA "MINHAS CONTAS"
+
+    ====================================================================================================
+*/
+
 
 Route::post('/carteira', [CarteiraController::class, 'cartaoStore'])->middleware('auth')->name('dadosCartao');
 
 Route::delete('/carteira/{id}', [CarteiraController::class, 'cartaoDelete'])->middleware('auth')->name('excluiCartao');
 
 Route::patch('/carteira/{id}', [CarteiraController::class,'cartaoUpdate'])->middleware('auth')->name('atualizaCartao');
+
+
+/*
+    ====================================================================================================
+
+        ROTAS REFERENTES À TELA TRANSAÇÕES
+
+    ====================================================================================================
+*/
+
 
 
 /*

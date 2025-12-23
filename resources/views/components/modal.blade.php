@@ -14,14 +14,14 @@
 @endphp
 
 <div id="{{ $id }}" 
-     class="modal-container" 
-     style="display: none;"
-     data-show-error="{{ $errorBag && $errors->$errorBag->any() ? 'true' : 'false' }}"
-     {!! $extraData !!}>
+    class="modal-container" 
+    style="display: none;"
+    data-show-error="{{ $errorBag && $errors->$errorBag->any() ? 'true' : 'false' }}"
+    {!! $extraData !!}>
 
-    <div class="modal-card-cartao">
+    <div class="modal-card">
 
-        <div class="topo-card-cartao">
+        <div class="topo-card">
             <span class="bt-fechar fechar-modal" data-target="#{{ $id }}">&times;</span>
             <h2>{{ $title }}</h2>
         </div>

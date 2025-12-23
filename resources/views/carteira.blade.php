@@ -14,11 +14,6 @@
         src: url('caminho/para/a/fonte/impact.woff') format('woff');
     }
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-
-
-    @if(session('editar_cartao_id'))
-        <meta name="editar-cartao-id" content="{{ session('editar_cartao_id') }}">
-    @endif
 </head>
 
 <body>
@@ -41,7 +36,7 @@
 
         
             @if ($cartoes->isEmpty())
-                <span class="texto-cartoes">Você ainda não possui cartoes. Clique no botão "+" acima para registrar um.</span>
+                <span class="texto-cartoes">Você ainda não possui cartões. Clique no botão "+" acima para registrar um.</span>
             @else
                 <ul class="cartoes-usuario">
                     @foreach($cartoes as $cartao)

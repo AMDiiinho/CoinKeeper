@@ -9,7 +9,7 @@ class Transacoes extends Model
 {
     use HasFactory;
 
-    protected $table = 'transacoes';
+    protected $table = 'tb_transacoes';
 
     protected $fillable = ['usuario_id', 'cartao_id', 'categoria_id', 'subcategoria_id', 
                            'titulo', 'tipo', 'status', 'lancamento', 'recorrencia_periodo', 
