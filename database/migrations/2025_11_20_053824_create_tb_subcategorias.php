@@ -20,8 +20,6 @@ return new class extends Migration
                   ->onDelete('cascade');
 
             $table->string('nome');
-            $table->string('cor', 7);
-            $table->string('icone');
             $table->timestamps();
         });
     }

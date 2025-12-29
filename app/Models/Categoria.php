@@ -19,8 +19,8 @@ class Categoria extends Model
     '#E76F51', '#9B5DE5', '#00B4D8', '#F15BB5', '#6A4C93' ]; 
     
     
-    public const ICONES = [ 'wallet', 'shopping-cart', 'coffee', 'car', 'food', 
-    'gift', 'health', 'education', 'travel', 'home',];
+    public const ICONES = [ 'carteira', 'carrinho-de-compras', 'cafe', 'carro', 'comida', 
+    'presente', 'saude', 'educacao', 'viagens', 'casa',];
 }
 
 

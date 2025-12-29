@@ -61,7 +61,31 @@
                 <label for="tipo">Tipo</label>
                 <x-select name="tipo" :options="$tipos"/>
             </div>
-            
+
+            <div class="input-field-categoria">
+                
+                <div class="select-categoria">
+                    <label for="categoria">Categoria</label>
+                    <x-select name="categoria" :options="$categorias"/> 
+                </div>
+
+                <div class="bt-categoria">
+                    <button id="criaCategoria" class="bt-add-categoria"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <div class="input-field-subcategoria">
+                
+                <div class="select-subcategoria">
+                    <label for="subcategoria">Sub-categoria</label>
+                    <x-select name="subcategoria" :options="$categorias"/> 
+                </div>
+
+                <div class="bt-subcategoria">
+                    <button id="criaSubCategoria" class="bt-add-subcategoria"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
             <div class="input-field">
                 <label for="status">Status</label>
                 <x-select name="status" :options="$status"/>
