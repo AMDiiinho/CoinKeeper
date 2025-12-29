@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @vite(['resources/js/modal_form.js'])
+    @vite(['resources/js/modal_transacoes'])
     @vite(['resources/css/transacoes.css'])
     @vite(['resources/css/layout-base.css'])
     @vite(['resources/css/modal.css'])
@@ -46,37 +46,73 @@
 
     <x-modal id="modalCreateTransacao" title="Nova Transação">
 
-        <form class="form-transacao" action="transacaoStore" method="POST">
+        <form action="{{ route('transacaoStore') }}"  id="formTransacao" class="form-transacao" method="POST">
 
-            <x-input  label="Título" name="titulo" placeholder="Informe o título da transação"/>
+            @csrf
 
-            <x-select label="Tipo" name="tipo" :options="$tipos"/>
+        <div class="input-container">
+
+            <div class="input-field">
+                <label for="titulo">Título</label>
+                <x-input name="titulo" placeholder="Informe o título da transação"/>
+            </div>
+
+            <div class="input-field">
+                <label for="tipo">Tipo</label>
+                <x-select name="tipo" :options="$tipos"/>
+            </div>
             
-            <x-select label="Status" name="status" :options="$status"/>
+            <div class="input-field">
+                <label for="status">Status</label>
+                <x-select name="status" :options="$status"/>
+            </div>
 
-            <x-select label="Lançamento" name="lancamento" :options="$lancamento"/>
+            <div class="input-field">
+                <label for="lancamento">Lançamento</label>
+                <x-select name="lancamento" :options="$lancamento"/>
+            </div>
 
-            <x-select label="Período de recorrência" name="recorrencia_periodo" :options="$recorrencia"/>
-
-            <x-input  label="Quantas recorrências?" name="recorrencia_qtd" type="number" placeholder="Informe quantas vezes esse período ocorrerá"/>
-
-            <x-input  label="Valor" name="valor" type="number" placeholder="Informe o valor da transação"/>
-
-            <label for="descricao" class="sua-classe-label">
-                Descrição
-            </label>
-
-            <textarea name="descricao" rows="4" 
+            <div class="input-field">
+                <label for="cartao">Cartão</label>
+                <x-select name="cartao" :options="$cartoes->pluck('nome', 'id')->toArray()"/>
+            </div>
             
-            style="width: 360px; 
-                   border-radius: 4px; 
-                   border: 1px solid black; 
-                   margin-bottom: 10px;">
+          
 
+            <div id="recorrenciaContainer" class="input-field" style="display: none;">
 
-            </textarea>
+                <label for="recorrencia_periodo">Período de recorrência</label>
+                <x-select name="recorrencia_periodo" :options="$recorrencia"/>
 
-            <x-input  label="Data" name="data" type="date" placeholder="Informe a data"/>
+                <label for="recorrencia_qtd">Quantidade de recorrencias</label>
+                <x-input name="recorrencia_qtd" type="number" placeholder="Informe quantas vezes esse período ocorrerá"/>
+            </div>
+            
+
+            <div class="input-field">
+                <label for="valor">Valor</label>
+                <x-input name="valor" type="number" placeholder="Informe o valor da transação"/>
+            </div>
+
+            <div class="input-field">
+                <label for="data">Data</label>
+                <x-input name="data" type="date" placeholder="Informe a data"/>
+            </div>
+
+            <div class="input-field-full">
+                <label for="descricao">Descrição</label><br>
+                <textarea name="descricao" rows="4" 
+                
+                style="width: 100%; 
+                    border-radius: 4px; 
+                    border: 1px solid black; 
+                    margin-bottom: 10px;"
+                    >
+
+                </textarea><br>
+            </div>
+            
+        </div>
 
             <button type="submit">Salvar Transação</button>
 

@@ -20,7 +20,7 @@ class CarteiraController extends Controller
             'dia_vencimento' => $request->input('dia_vencimento'),
         ]);
 
-        session()->flash('sucesso', 'Cartao criado com sucesso!');
+        session()->flash('sucesso', 'Cartão criado com sucesso!');
         return redirect()->intended('carteira');
     }
 

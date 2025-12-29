@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CarteiraController;
+use App\Http\Controllers\TransacaoController;
 use Faker\Guesser\Name;
 
 /*
@@ -57,6 +58,7 @@ Route::get('/carteira', [DashboardController::class, 'carteira'])->middleware('a
 Route::get('/transacoes', [DashboardController::class, 'transacoes'])->middleware('auth');
 
 
+
 /*
     ====================================================================================================
 
@@ -80,6 +82,8 @@ Route::patch('/carteira/{id}', [CarteiraController::class,'cartaoUpdate'])->midd
 
     ====================================================================================================
 */
+
+Route::post('/transacoes', [TransacaoController::class, 'transacaoStore'])->middleware('auth')->name('transacaoStore');
 
 
 

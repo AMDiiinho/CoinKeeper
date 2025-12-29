@@ -26,7 +26,10 @@
             <h2>{{ $title }}</h2>
         </div>
 
+       
         {{-- O conteúdo do form entra aqui --}}
         {{ $slot }}
+      
+            
     </div>
 </div>
