@@ -30,12 +30,12 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.form-transacao label {
+label {
     font-size: 18px;
     color: #2C2C2C; /* texto escuro */
 }
 
-.form-transacao select {
+select {
     padding: 8px;
     width: 100%;
     font-size: 16px;
@@ -46,11 +46,11 @@
     transition: 0.3s ease;
 }
 
-.form-transacao select:hover {
+select:hover {
     background-color: #6FB1FC; /* azul claro hover */
 }
 
-.form-transacao input {
+input {
     padding: 8px;
     width: 100%;
     font-size: 16px;
@@ -61,7 +61,7 @@
     color: #2C2C2C;
 }
 
-.form-transacao button {
+button {
     padding: 10px;
     width: 100%;
     font-size: 16px;
@@ -73,7 +73,7 @@
     transition: 0.3s ease;
 }
 
-.form-transacao button:hover {
+button:hover {
     background-color: #4364F7; /* azul médio hover */
 }
 

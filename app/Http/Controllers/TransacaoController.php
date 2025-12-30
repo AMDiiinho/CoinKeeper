@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\Transacoes;
 use App\Http\Requests\TransacaoRequest;
-
 use Illuminate\Http\Request;
 
 class TransacaoController extends Controller
@@ -27,4 +26,6 @@ class TransacaoController extends Controller
         session()->flash('sucesso', 'Transação registrada com sucesso!');
         return redirect()->intended('transacoes');
     }
+
+    
 }

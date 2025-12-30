@@ -135,4 +135,84 @@
     font-size: 14px; /* ajuste o tamanho aqui */ 
 }
 
+.inputs-categoria {
+    display: flex;
+    width: 100%;
+    gap: 8px
+}
 
+.input-categoria-nome{
+    width: 160%;
+}
+
+.input-cor input[type="color"] {
+  width: 180px;
+  height: 37px;
+  padding: 3px;
+  border-radius: 4px;
+}
+
+
+.form-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.lista-icones {
+  display: grid; 
+  grid-template-columns: repeat(5, minmax(0, 1fr)); /* 5 colunas */ 
+  gap: 12px;
+  margin: 20px 0 20px 0;
+}
+
+.item-icone {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: 6px; 
+  cursor: pointer; 
+  user-select: none;
+}
+
+.icone-radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.icone-circulo {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFF;
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+.item-icone:hover .icone-circulo {
+  background-color: #84b3ff;
+}
+
+.item-icone .icon-circulo svg {
+  width: 24px;
+  height: 24px;
+  /* se o SVG usar fill corrente */
+  fill: #2C2C2C;
+}
+
+/* estado selecionado: estiliza via :has() ou via input:checked */
+.item-icone .icone-radio:checked + .icone-circulo {
+  background-color: #84b3ff;
+}
+
+/* acessibilidade: foco do teclado */
+.item-icone .icone-radio:focus + .icone-circulo {
+  outline: 2px solid #4364F7;
+}
+
+/* responsivo */
+@media (max-width: 640px) {
+  .lista-icone { grid-template-columns: repeat(3, 1fr); }
+}

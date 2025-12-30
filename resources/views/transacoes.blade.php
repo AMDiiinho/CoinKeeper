@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Minha Carteira</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
     
@@ -13,6 +14,7 @@
     @vite(['resources/css/transacoes.css'])
     @vite(['resources/css/layout-base.css'])
     @vite(['resources/css/modal.css'])
+    @vite(['resources/js/modal_categoria.js'])
     @font-face {
         font-family: 'Impact';
         src: url('caminho/para/a/fonte/impact.woff') format('woff');
@@ -66,11 +68,11 @@
                 
                 <div class="select-categoria">
                     <label for="categoria">Categoria</label>
-                    <x-select name="categoria" :options="$categorias"/> 
+                    <x-select id="categoriaSelect" name="categoria" :options="$categorias->pluck('nome', 'id')->toArray()"/> 
                 </div>
 
                 <div class="bt-categoria">
-                    <button id="criaCategoria" class="bt-add-categoria"><i class="fas fa-plus"></i></button>
+                    <button id="criaCategoria" type="button" class="bt-add-categoria"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
 
@@ -78,11 +80,11 @@
                 
                 <div class="select-subcategoria">
                     <label for="subcategoria">Sub-categoria</label>
-                    <x-select name="subcategoria" :options="$categorias"/> 
+                    <x-select name="subcategoria" /> 
                 </div>
 
                 <div class="bt-subcategoria">
-                    <button id="criaSubCategoria" class="bt-add-subcategoria"><i class="fas fa-plus"></i></button>
+                    <button id="criaSubCategoria" type="button" class="bt-add-subcategoria"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
 
@@ -141,6 +143,43 @@
             <button type="submit">Salvar Transação</button>
 
         </form>
+
+        <!-- formulário de criação de categoria (inicialmente oculto) -->
+        <form id="formCategoria" class="form-categoria" style="display:none;" method="POST" action="{{ route('categoriaStore') }}">
+            @csrf
+
+            <div class="inputs-categoria">
+                <div class="input-categoria-nome">
+                    <label for="categoria_nome">Nome</label>
+                    <x-input id="categoria_nome" name="nome" placeholder="Informe o nome da sua nova categoria"/>
+                </div>
+
+                <div class="input-cor">
+                    <label for="categoria_cor">Escolha uma cor</label>
+                    <x-input id="categoria_cor" name="cor" type="color"/>
+                </div>
+            </div>
+
+            <label for="icones">Escolha o ícone:</label>
+            <div class="lista-icones" nome="icones">
+                @foreach($icones as $icone)
+                    <label class="item-icone">
+                    <input type="radio" name="icone" value="{{ $icone }}" class="icone-radio" required>
+                    <span class="icone-circulo" aria-hidden="true">
+                        {{-- inline SVG para permitir estilização por CSS --}}
+                        {!! file_get_contents(resource_path('svg/categorias/' . $icone . '.svg')) !!}
+                    </span>
+
+                    </label>
+                @endforeach
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="cancelCategoria">Cancelar</button>
+                <button type="submit" id="saveCategoria">Salvar Categoria</button>
+            </div>
+        </form>
+
 
     </x-modal>
     

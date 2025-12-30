@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CarteiraController;
 use App\Http\Controllers\TransacaoController;
+use App\Http\Controllers\CategoriaController;
 use Faker\Guesser\Name;
 
 /*
@@ -84,6 +85,21 @@ Route::patch('/carteira/{id}', [CarteiraController::class,'cartaoUpdate'])->midd
 */
 
 Route::post('/transacoes', [TransacaoController::class, 'transacaoStore'])->middleware('auth')->name('transacaoStore');
+
+
+
+/*
+    ====================================================================================================
+
+        ROTAS REFERENTES À CATEGORIAS
+
+    ====================================================================================================
+*/
+
+Route::post('/categorias', [CategoriaController::class, 'categoriaStore'])->middleware('auth')->name('categoriaStore');
+
+Route::get('/categorias/listar', [CategoriaController::class, 'categoriaListar'])->middleware('auth');
+
 
 
 

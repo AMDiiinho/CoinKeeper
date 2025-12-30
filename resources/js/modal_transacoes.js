@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const formTransacao = document.getElementById('formTransacao');
     const recorrenciaPeriodo = document.getElementsByName('recorrencia_periodo');
     const recorrenciaQtd = document.getElementsByName('recorrencia_qtd');
+    
 
 
     /*

@@ -23,7 +23,7 @@
 
         <div class="topo-card">
             <span class="bt-fechar fechar-modal" data-target="#{{ $id }}">&times;</span>
-            <h2>{{ $title }}</h2>
+            <h2 id="modalTitle">{{ $title }}</h2>
         </div>
 
        

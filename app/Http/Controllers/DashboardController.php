@@ -40,7 +40,8 @@ class DashboardController extends Controller
         $lancamento = Transacoes::LANCAMENTO;
         $recorrencia = Transacoes::RECORRENCIA_PERIODO;
         $cartoes = Cartao::where('usuario_id', Auth::id())->get();
+        $icones = Categoria::ICONES;
 
-        return view('transacoes', compact('lancamento', 'transacoes', 'recorrencia','tipos','status', 'cartoes', 'categorias'));
+        return view('transacoes', compact('lancamento', 'transacoes', 'recorrencia','tipos','status', 'cartoes', 'categorias', 'icones'));
     }
 }
