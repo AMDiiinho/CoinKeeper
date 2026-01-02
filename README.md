@@ -124,6 +124,7 @@ php artisan serve
 
 📂 Estrutura do Projeto
 
+```bash
 app/                # Models, Controllers e lógica da aplicação
 routes/             # Definição das rotas web
 resources/views/    # Templates Blade, componentes e modais
@@ -131,3 +132,4 @@ resources/js/       # Scripts frontend
 resources/css/      # Estilos e ajustes de layout
 public/             # Assets públicos (CSS e JS compilados, imagens)
 database/           # Migrations e seeders
+```
