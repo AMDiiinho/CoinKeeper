@@ -7,7 +7,7 @@ use App\Models\Cartao;
 
 class CarteiraController extends Controller
 {
-    function cartaoStore(CartaoRequest $request){
+    public function cartaoStore(CartaoRequest $request){
 
         Cartao::create([
             'usuario_id'     => auth()->id(),
@@ -24,7 +24,7 @@ class CarteiraController extends Controller
         return redirect()->intended('carteira');
     }
 
-    function cartaoDelete($id){
+    public function cartaoDelete($id){
         $cartao = Cartao::findOrFail($id);
         $cartao->delete();
 

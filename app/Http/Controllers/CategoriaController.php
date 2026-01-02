@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    function categoriaStore(CategoriaRequest $request) {
+    public function categoriaStore(CategoriaRequest $request) {
 
         $categoria = Categoria::create([
             'usuario_id'        => auth()->id(),
@@ -23,7 +23,7 @@ class CategoriaController extends Controller
     }
 
 
-    function categoriaListar(){
+    public function categoriaListar(){
         
         $categorias = Categoria::where('usuario_id', auth()->id())
             -> orderBy('nome')

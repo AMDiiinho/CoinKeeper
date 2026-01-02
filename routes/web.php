@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CarteiraController;
 use App\Http\Controllers\TransacaoController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\SubcategoriaController;
 use Faker\Guesser\Name;
 
 /*
@@ -91,15 +92,18 @@ Route::post('/transacoes', [TransacaoController::class, 'transacaoStore'])->midd
 /*
     ====================================================================================================
 
-        ROTAS REFERENTES À CATEGORIAS
+        ROTAS REFERENTES À CATEGORIAS E SUBCATEGORIAS
 
     ====================================================================================================
 */
 
 Route::post('/categorias', [CategoriaController::class, 'categoriaStore'])->middleware('auth')->name('categoriaStore');
 
-Route::get('/categorias/listar', [CategoriaController::class, 'categoriaListar'])->middleware('auth');
+Route::get('/categorias', [CategoriaController::class, 'categoriaListar'])->middleware('auth');
 
+Route::post('/subcategorias', [SubcategoriaController::class, 'subcategoriaStore'])->middleware('auth')->name('subcategoriaStore');
+
+Route::get('/subcategorias', [SubcategoriaController::class, 'retornaJson']) ->middleware('auth') ->name('subcategorias.listar');
 
 
 

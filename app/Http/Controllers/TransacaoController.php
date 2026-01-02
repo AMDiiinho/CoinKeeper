@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 
 class TransacaoController extends Controller
 {
-    function transacaoStore(TransacaoRequest $request){
+    public function transacaoStore(TransacaoRequest $request){
         Transacoes::create([
             'usuario_id'            => auth()->id(),
             'cartao_id'             => $request->input('cartao'),
-            'categoria_id'          => 1,
-            'subcategoria_id'       => 1,
+            'categoria_id'          => $request->input('categoria'),
+            'subcategoria_id'       => $request->input('subcategoria'),
             'titulo'                => $request->input('titulo'),
             'status'                => $request->input('status'),
             'lancamento'            => $request->input('lancamento'),

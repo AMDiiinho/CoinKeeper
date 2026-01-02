@@ -4,7 +4,8 @@
     'options' => [], // Array ['valor' => 'Texto']
     'placeholder' => 'Selecione...',
     'errorBag' => 'default',
-    'disabled' => false
+    'disabled' => false,
+    'style'
 ])
 
 <div>

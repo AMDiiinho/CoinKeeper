@@ -15,6 +15,7 @@
     @vite(['resources/css/layout-base.css'])
     @vite(['resources/css/modal.css'])
     @vite(['resources/js/modal_categoria.js'])
+    @vite(['resources/js/modal_subcategoria.js'])
     @font-face {
         font-family: 'Impact';
         src: url('caminho/para/a/fonte/impact.woff') format('woff');
@@ -80,11 +81,11 @@
                 
                 <div class="select-subcategoria">
                     <label for="subcategoria">Sub-categoria</label>
-                    <x-select name="subcategoria" /> 
+                    <x-select id="subcategoria" name="subcategoria" :options="$subcategorias ?? []" />
                 </div>
 
                 <div class="bt-subcategoria">
-                    <button id="criaSubCategoria" type="button" class="bt-add-subcategoria"><i class="fas fa-plus"></i></button>
+                    <button id="criaSubCategoria" type="button" class="bt-add-subcategoria" style="cursor: not-allowed"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
 
@@ -103,17 +104,16 @@
                 <x-select name="cartao" :options="$cartoes->pluck('nome', 'id')->toArray()"/>
             </div>
             
-          
-
-            <div id="recorrenciaContainer" class="input-field" style="display: none;">
-
+            <div id="recorrenciaPer" class="input-field">
                 <label for="recorrencia_periodo">Período de recorrência</label>
                 <x-select name="recorrencia_periodo" :options="$recorrencia"/>
+            </div>
 
+            <div id="recorrenciaQtd" class="input-field">
                 <label for="recorrencia_qtd">Quantidade de recorrencias</label>
                 <x-input name="recorrencia_qtd" type="number" placeholder="Informe quantas vezes esse período ocorrerá"/>
             </div>
-            
+        
 
             <div class="input-field">
                 <label for="valor">Valor</label>
@@ -177,6 +177,36 @@
             <div class="form-actions">
                 <button type="button" id="cancelCategoria">Cancelar</button>
                 <button type="submit" id="saveCategoria">Salvar Categoria</button>
+            </div>
+        </form>
+
+        <form action="{{ route('subcategoriaStore') }}" id="formSubcategoria" class="form-subcategoria" style="display:none" method="POST">
+            @csrf
+
+            <div class="input-field-categoria">
+                <div class="select-categoria">
+                    <label for="categoriaSelectSubcategoria">Categoria</label>
+
+                    <!-- Select visual do modal: apenas para exibição, permanece disabled -->
+                    <!-- Certifique-se que seu componente x-select aceita o atributo id -->
+                    <x-select id="categoriaSelectSubcategoria" name="categoria_display" disabled="true" />
+
+                    <!-- Input hidden que será enviado ao backend com o id da categoria -->
+                    <!-- NÃO deixar disabled, pois campos disabled não são enviados -->
+                    <input type="hidden" id="input-categoria-hidden" name="categoria-subcategoria" value="">
+                </div>
+            </div>
+
+            <div class="input-field-subcategoria">
+                <div class="nome-subcategoria">
+                    <label for="subcategoriaSelect">Nome da Sub-categoria</label>
+                    <x-input id="subcategoriaSelect" class="input-subcategoria" name="nome" placeholder="Digite o nome da nova sub-categoria" />
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="cancelSubcategoria">Cancelar</button>
+                <button type="submit" id="saveSubcategoria">Salvar Sub-categoria</button>
             </div>
         </form>
 

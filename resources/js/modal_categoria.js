@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
     categoriaSelect.disabled = true;
 
     try {
-      const resp = await fetch('/categorias/listar', {
+      const resp = await fetch('/categorias', {
         headers: {
           'Accept': 'application/json'
         },
@@ -146,7 +146,5 @@ document.addEventListener('DOMContentLoaded', function () {
       alert('Erro de rede ao criar categoria');
     }
   });
-
-  atualizaSelect();
 });
 
