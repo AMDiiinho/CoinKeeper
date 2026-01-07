@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const categoriaSelect = document.getElementById('categoria');
   const criaSubcategoriaBtn = document.getElementById('criaSubCategoria');
   const subcategoriaSelect = document.getElementById('subcategoria');
+  const fundoIcone = document.getElementsByClassName('fundo-icone');
+  const tipoTransacao = document.getElementById('tipo');
 
   // segurança
   if (!categoriaSelect || !subcategoriaSelect) {

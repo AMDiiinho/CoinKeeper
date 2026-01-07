@@ -234,3 +234,86 @@
 .input-subcategoria {
     width: 887px;
 }
+
+.transacoes-usuario {
+    display: flex;
+    flex-direction: column;
+    width: 98.65%;
+}
+
+.card-transacao {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 10px;
+    border-radius: 4px;
+    font-size: 18px;
+    box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
+    background-color: #F5F5F5; /* fundo claro */
+    transition: 0.3s ease;
+    min-height: 95px;
+}
+
+
+.lateral-card-receita {
+  display: flex;
+  align-items: center;
+  width: 40px;
+  height: 95px;
+  border-radius: 4px 1px 1px 4px;
+  background-color: #00ac1d; 
+}
+
+.lateral-card-despesa {
+  display: flex;
+  align-items: center;
+  width: 40px;
+  height: 95px;
+  border-radius: 4px 1px 1px 4px;
+  background-color: #df1010; 
+}
+
+.lateral-card-transferencia {
+  display: flex;
+  align-items: center;
+  width: 40px;
+  height: 95px;
+  border-radius: 4px 1px 1px 4px;
+  background-color: #0052D4; 
+}
+
+.lateral-card-receita i {
+  color: #00ac1d; 
+  margin: 2px;
+  margin-top: 4px;
+  font-size: 16px;
+}
+
+.lateral-card-despesa i {
+  color: #df1010;  
+  margin: 2px;
+  margin-top: 4px;
+  font-size: 16px;
+}
+
+.lateral-card-transferencia i {
+  color: #0052D4; 
+  margin: 2px;
+  margin-top: 4px;
+  font-size: 16px;
+}
+
+.transacao-nome, .valor-transacao, .transacao-tipo {
+  margin-left: 10px;
+}
+
+
+
+.fundo-icone {
+  background-color: white;
+  width: 25px;
+  height: 25px;
+  margin: 8px;
+  border-radius: 15px;
+}
+

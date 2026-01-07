@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Minha Carteira</title>
+    <title>Transações</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -40,7 +40,45 @@
             @if ($transacoes->isEmpty())
                 <span class="texto-lista-vazia">Você ainda não registrou nenhuma transação.</span>
             @else
+                <ul class="transacoes-usuario">
+                    @foreach ($transacoes as $transacao)
+                        <li class="card-transacao">
 
+                            @if ($transacao->tipo === 'receita') 
+                                <div class="lateral-card-receita">
+                                    <div class="fundo-icone">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                </div>
+                            @elseif ($transacao->tipo === 'despesa')
+                                <div class="lateral-card-despesa">
+                                    <div class="fundo-icone">
+                                        <i class="fas fa-minus"></i>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="lateral-card-transferencia">
+                                    <div class="fundo-icone">
+                                        <i class="fas fa-exchange"></i>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="info-transacao">
+                                <div class="transacao-nome">
+                                    <strong>{{ $transacao->titulo }}</strong>
+                                </div>
+                                <div class="transacao-tipo">
+                                    <strong id="tipo" >{{ $transacao->tipo }}</strong>
+                                </div>
+                                <div class="valor-transacao">
+                                    <span>R$: {{ $transacao->valor }}</span>
+                                </div>
+                            </div>
+                            
+                        </li>
+                    @endforeach
+                </ul>
             @endif
 
         </div>
@@ -51,7 +89,7 @@
 
         <form action="{{ route('transacaoStore') }}"  id="formTransacao" class="form-transacao" method="POST">
 
-            @csrf
+        @csrf
 
         <div class="input-container">
 

@@ -49,6 +49,8 @@
                                     <div class="cartao-nome-tipo">
                                         <strong>{{ $cartao->nome }}</strong>
                                         <span class="tipo-cartao">
+                                            <!-- Operador de coalescência nula, se $tipos[$cartao->tipo] existir
+                                             e não for null, usa esse valor, se não usa 'Carteira' -->
                                             ({{ $tipos[$cartao->tipo] ?? 'Carteira' }})
                                         </span>
                                     </div>
@@ -114,6 +116,8 @@
 
             <form action="{{ route('dadosCartao') }}" method="POST" class="form-cartao">
                 @csrf
+
+                <input type="hidden" name="usuario_id" value="{{ $usuario_id }}">
                 
                 <label>Nome</label>
                 <input type="text" name="nome" value="{{ old('nome') }}" placeholder="Apelido do cartão">

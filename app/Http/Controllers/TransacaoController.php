@@ -14,6 +14,7 @@ class TransacaoController extends Controller
             'categoria_id'          => $request->input('categoria'),
             'subcategoria_id'       => $request->input('subcategoria'),
             'titulo'                => $request->input('titulo'),
+            'tipo'                  => $request->input('tipo'),
             'status'                => $request->input('status'),
             'lancamento'            => $request->input('lancamento'),
             'recorrencia_periodo'   => $request->input('recorrencia_periodo'),

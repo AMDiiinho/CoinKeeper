@@ -21,11 +21,12 @@ class DashboardController extends Controller
 
         Auth::user();
 
+        $usuario_id = auth()->id();
         $cartoes = Cartao::where('usuario_id', Auth::id())->get();
         $bancos = Cartao::BANCOS;
         $tipos = Cartao::TIPOS;
 
-        return view('carteira', compact('tipos','cartoes','bancos'));
+        return view('carteira', compact('tipos','cartoes','bancos', 'usuario_id'));
     }
 
     public function transacoes(){
