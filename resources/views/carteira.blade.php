@@ -166,49 +166,70 @@
         </div>
     </div>
 
-    <div id="modalEdit" class="modal-container" style="display: none;" data-show-error="{{ $errors->edit->any() ? 'true' : 'false' }}"
-    data-edit-id="{{ session('editar_cartao_id') }}">
-        <div class="modal-card-cartao">
-            <div class="topo-card-cartao">
-                <span class="bt-fechar fechar-modal" data-target="#modalEdit">&times;</span>
-                <h2>Editar Cartão</h2>
-            </div>
+    @if (!$cartoes->isEmpty())
+        {{-- AQUI, VOCÊ PEGA UM CARTÃO QUALQUER (o primeiro) APENAS PARA O PHP NÃO DAR ERRO
+            AO TENTAR RENDERIZAR OS CAMPOS old() e os values padrões. --}}
+        @php
+            $cartao = $cartoes->first(); 
+        @endphp
 
-            <form id="formEdit" method="POST" class="form-cartao">
-                @csrf
-                @method('PATCH')
-                
-                <label>Nome</label>
-                <input type="text" name="nome" id="editNome" value="{{ old('nome') }}">
-                @error('nome', 'edit') <div class="erro">{{ $message }}</div> @enderror
-
-                <label>Banco</label>
-                <input type="text" id="editBancoVisual" disabled style="background: #eee;">
-                
-                <label>Tipo</label>
-                <input type="text" id="editTipoVisual" disabled style="background: #eee;">
-
-                <div id="camposCreditoEdit" style="display: none;">
-                    <label>Limite</label>
-                    <input type="text" name="limite" id="editLimite" value="{{ old('limite') }}">
-                    @error('limite', 'edit') <small class="erro">{{ $message }}</small> @enderror
-
-                    <label>Dia Fechamento</label>
-                    <input type="number" name="dia_fechamento" id="editFechamento" value="{{ old('dia_fechamento') }}">
-                    @error('dia_fechamento', 'edit') <small class="erro">{{ $message }}</small> @enderror
-
-                    <label>Dia Vencimento</label>
-                    <input type="number" name="dia_vencimento" id="editVencimento" value="{{ old('dia_vencimento') }}">
-                    @error('dia_vencimento', 'edit') <small class="erro">{{ $message }}</small> @enderror
+        <div id="modalEdit" class="modal-container" style="display: none;" data-show-error="{{ $errors->edit->any() ? 'true' : 'false' }}"
+        data-edit-id="{{ session('editar_cartao_id') }}">
+            <div class="modal-card-cartao">
+                <div class="topo-card-cartao">
+                    <span class="bt-fechar fechar-modal" data-target="#modalEdit">&times;</span>
+                    <h2>Editar Cartão</h2>
                 </div>
 
-                <label>Saldo Atual</label>
-                <input type="text" id="editSaldoVisual" disabled style="background: #eee;">
+                <form id="formEdit" method="POST" class="form-cartao">
+                    @csrf
+                    @method('PATCH')
+                    
+                    <label>Nome</label>
+                    <input type="text" name="nome" id="editNome" value="{{ old('nome') }}">
+                    @error('nome', 'edit') <div class="erro">{{ $message }}</div> @enderror
 
-                <button type="submit">Atualizar Cartão</button>
-            </form>
+                    <label>Banco</label>
+                    <input type="text" 
+                        value="{{ old('banco', $bancos[$cartao->banco] ?? $cartao->banco) }}" id="editBancoVisual" disabled>
+
+                    <input type="hidden" name="banco" id="editBancoHidden" value="{{ old('banco', $cartao->banco) }}">
+                    
+                    <label>Tipo</label>
+                    <input type="text"
+                            {{-- ?? é um operador de coalescencia nula, equivalente ao isset, aqui ele verifica 
+                                se $tipos[$cartao->tipo] está definido e não é null. Se estiver definido, usa esse valor, se não usa $cartao->tipo --}}
+                        value="{{ old('tipo', $tipos[$cartao->tipo] ?? $cartao->tipo) }}" id="editTipoVisual" disabled>
+
+                    <input type="hidden" name="tipo" id="editTipoHidden" value="{{ old('tipo', $cartao->tipo) }}">
+
+                    <div id="camposCreditoEdit" style="display: none;">
+                        <label>Limite</label>
+                        <input type="text" name="limite" id="editLimite" value="{{ old('limite') }}">
+                        @error('limite', 'edit') <small class="erro">{{ $message }}</small> @enderror
+
+                        <label>Dia Fechamento</label>
+                        <input type="number" name="dia_fechamento" id="editFechamento" value="{{ old('dia_fechamento') }}">
+                        @error('dia_fechamento', 'edit') <small class="erro">{{ $message }}</small> @enderror
+
+                        <label>Dia Vencimento</label>
+                        <input type="number" name="dia_vencimento" id="editVencimento" value="{{ old('dia_vencimento') }}">
+                        @error('dia_vencimento', 'edit') <small class="erro">{{ $message }}</small> @enderror
+                    </div>
+
+                    <label>Saldo Atual</label>
+                    <input type="text" 
+                        value="{{ old('saldo', $cartao->saldo) }}" id="editSaldoVisual" disabled>
+
+                    <input type="hidden" name="saldo" id="editSaldoHidden" value="{{ old('saldo', $cartao->saldo) }}">
+
+
+
+                    <button type="submit">Atualizar Cartão</button>
+                </form>
+            </div>
         </div>
-    </div>
+    @endif
 
     <script>
         @if($errors->create->any())

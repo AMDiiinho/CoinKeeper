@@ -10,12 +10,12 @@ class UpdateCartaoDTO {
         
         public int $id, 
         public string $nome, 
-        public string $banco, 
-        public string $tipo, 
+        public ?string $banco, 
+        public ?string $tipo, 
         public float $limite, 
-        public float $saldo, 
-        public int $dia_fechamento, 
-        public int $dia_vencimento
+        public ?float $saldo, 
+        public ?int $dia_fechamento, 
+        public ?int $dia_vencimento
     ) {}
 
     public static function makeFromRequest(CartaoRequest $request): self {

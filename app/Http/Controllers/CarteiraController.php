@@ -48,16 +48,14 @@ class CarteiraController extends Controller
     {
 
         
-        $cartao = Cartao::findOrFail($id);
+        //$cartao = Cartao::findOrFail($id);
+        //$cartao->update($request->validated());
 
-        $cartao->update($request->validated());
+        $cartao = $this->service->update(UpdateCartaoDTO::makeFromRequest($request));
 
-    
-        //$cartao = $this->service->update(UpdateCartaoDTO::makeFromRequest($request));
-
-        //if(!$cartao){
-        //    return back();
-        //}
+        if(!$cartao){
+            return back();
+        }
 
         return redirect()->back()->with('sucesso', 'Cartão atualizado!');
     }

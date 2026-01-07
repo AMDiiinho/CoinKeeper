@@ -46,9 +46,20 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Preencher campos
             document.getElementById('editNome').value = data.nome;
-            document.getElementById('editBancoVisual').value = data.banco;
+            
+            // --- INÍCIO: CAMPOS VISUAIS E HIDDEN CORRIGIDOS ---
+            
+            // Campos de Leitura (Visual)
+            document.getElementById('editBancoVisual').value = data.banco; 
             document.getElementById('editTipoVisual').value = data.tipo;
             document.getElementById('editSaldoVisual').value = data.saldo; 
+
+            // Campos HIDDEN (Para enviar no PATCH)
+            document.getElementById('editBancoHidden').value = data.banco; // NOVO: Campo Hidden Banco
+            document.getElementById('editTipoHidden').value = data.tipo;   // NOVO: Campo Hidden Tipo
+            document.getElementById('editSaldoHidden').value = data.saldo; // NOVO: Campo Hidden Saldo
+            
+            // --- FIM: CAMPOS VISUAIS E HIDDEN CORRIGIDOS ---
 
             // Lógica de campos de crédito no Edit
             if (data.tipo === 'credito') {
@@ -58,6 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('editVencimento').value = data.vencimento;
             } else {
                 camposCreditoEdit.style.display = 'none';
+                
+                // Limpar campos de crédito (boa prática ao fechar)
+                document.getElementById('editLimite').value = '';
+                document.getElementById('editFechamento').value = '';
+                document.getElementById('editVencimento').value = '';
             }
 
             modalEdit.style.display = 'block';
@@ -73,7 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Reabrir modal se houver erro de validação (Backend Flash)
-    // O Laravel vai injetar um script se houver erro numa Bag específica
-    
-    
+    const modalEditData = document.getElementById('modalEdit')?.dataset;
+    if (modalEditData?.showError === 'true' && modalEditData.editId) {
+        // Se houver erro de validação (edit bag)
+        modalEdit.style.display = 'block';
+
+        // ATENÇÃO: Se o modal reabrir devido a erro, o JS precisa saber qual ID está editando.
+        // O Laravel salva o ID na sessão (`session('editar_cartao_id')`) e você usa no data-edit-id.
+        // Você precisará de uma lógica extra aqui para popular os campos `old()`
+        // se o erro vier do backend e não de um clique no botão.
+        // Por hora, apenas reabre o modal.
+        
+        // Exemplo: forçar a action do form se o ID estiver na sessão
+        formEdit.action = `/carteira/${modalEditData.editId}`;
+        
+        // O preenchimento com `old()` já está no Blade, o que resolve o problema.
+    }
 });

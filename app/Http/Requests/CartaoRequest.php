@@ -50,10 +50,8 @@ class CartaoRequest extends FormRequest
         }
 
         if ($this->isMethod('patch')) {
+            
             $cartao = Cartao::find($this->route('id'));
-
-            $rules['banco'] = 'prohibited';
-            $rules['tipo']  = 'prohibited';
 
             if ($cartao->tipo === 'credito') {
                 $rules['limite']     = 'required|numeric|min:0';
