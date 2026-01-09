@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CadastroRequest;
+use App\Http\Requests\RedefinicaoSenhaRequest;
 use App\Mail\AlteracaoDeSenha;
 use App\Models\Usuario;
 use App\Http\Requests\LoginRequest;
@@ -95,7 +96,8 @@ class HomeController extends Controller
         ]);
     }
 
-    public function redefinirSenha (Request $request, $codigo) {
+    public function redefinirSenha (RedefinicaoSenhaRequest $request, $codigo) {
+
 
         $findCodigo = RedefinirSenha::where('codigo', $codigo)->first();
 
@@ -108,11 +110,10 @@ class HomeController extends Controller
 
             if($buscaUsuario->save()){
               
-                return "senha alterada com sucesso";
+                return back()->with('success', 'Senha alterada com sucesso!')
+                            ->with('redirect', route('credenciaisEntrada'));
+
             }
-
-            return "nn foi possivel trocar a senha";
-
 
         }
     }

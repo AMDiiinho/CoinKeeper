@@ -1,0 +1,102 @@
+body {
+    display: flex;
+    min-height: 98vh;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #bdc3c7;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container-header {
+    background-color: #0052D4;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-radius: 6px 6px 0 0;
+}
+
+.form-header {
+    color: white;
+    margin-left: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.senha-container {
+    display: flex;
+    margin-right: 100px;
+    transform: scale(1.2);
+}
+
+.senha-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #f1f1f1;
+    width: 350px;
+    padding: 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+}
+
+
+.form-elements {
+    padding: 20px 10px 15px -10px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+
+.senha-form button {
+    margin-top: 12px;
+    padding: 9px 20px;
+    background-color: white;
+    border: 1px solid #797979ff;
+    border-radius: 4px;
+    color: black;
+    font-weight: bold;
+    width: 272px;
+    cursor: pointer;
+    margin-left: 40px;
+    transition: all 0.3s ease-in-out;
+}
+
+.senha-form button:hover{
+    border: 1px solid #45d16a;  
+    background-color: #45d16a;
+    color: white;
+}
+
+input {
+    width: 250px; 
+    margin-left: 40px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #797979ff;
+    border-radius: 4px;
+}
+
+input::placeholder {
+    font-family: 'Roboto', 'Sans-Serif';
+}
+
+label {
+    margin-left: 40px;
+    font-size: 14px;
+}
+
+.erro {
+    display: block;
+    min-height: 16px; /* reserva espaço mesmo sem erro */
+    color: red;
+    font-size: 12px;
+    margin: 0 0 6px 40px;
+}
+
+.sucesso {
+    display: block;
+    min-height: 16px; /* reserva espaço como no erro */
+    color: green;
+    font-size: 12px;
+    margin: 0 0 6px 40px;
+}

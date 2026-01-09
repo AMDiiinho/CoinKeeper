@@ -21,41 +21,48 @@
         <li class="right"><a href="/entrar">Entrar</a></li>
     </ul>
 
+    <div class="conteudo">
+        <div class="login-container">
+            <div class = "login-form">
 
-    <div class="login-container">
-        <div class = "login-form">
-            <form action="{{ route ('dadosLogin') }}" method="POST">
-
-                @csrf
-
-                @if ($errors->has('login'))
-                    <div class="erro">
-                        {!! $errors->first('login') !!}
-                    </div>
-                @endif
-                
-                <label>E-mail</label><br>
-                <input type="text" placeholder="Digite seu e-mail" name="email"></input><br>
-
-
-                <label>Senha</label><br>
-                <input type="password" placeholder="Digite sua senha" name="password"></input><br>
-
-
-                <button type="submit">Entrar</button>
-
-                <div class="recuperacao-link">
-                    <a href="/esqueciMinhaSenha">Esqueceu a senha?</a>
+                <div class="container-header">
+                    <p class="form-header">Login<p>
                 </div>
 
-            </form>
+                <form action="{{ route ('dadosLogin') }}" method="POST">
+
+                    @csrf
+
+                    <div class="form-elements">
+
+                        @if ($errors->has('login'))
+                            <div class="erro">
+                                {!! $errors->first('login') !!}
+                            </div>
+                        @endif
+                        
+                        <label>E-mail</label><br>
+                        <x-input type="text" placeholder="Digite seu e-mail" name="email"/>
+
+
+                        <label>Senha</label><br>
+                        <x-input type="password" placeholder="Digite sua senha" name="password"/>
+
+
+                        <button type="submit">Entrar</button>
+
+                        <div class="recuperacao-link">
+                            <a href="/esqueciMinhaSenha">Esqueceu a senha?</a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <a href="/cadastro" class="botao-cadastro">Cadastre-se agora!</button>
         </div>
-
-        <button class="botao-cadastro">Cadastre-se agora!</button>
-
-
     </div>
-
+    
     
 
 </body>

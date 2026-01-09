@@ -1,3 +1,16 @@
+body {
+    background-color: #bdc3c7;
+    font-family: 'Roboto', sans-serif;
+} 
+
+.conteudo {
+    display: flex;
+    min-height: 90vh;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .menu-bar {
     list-style-type: none;
     margin: 5px;
@@ -30,30 +43,44 @@
     padding-right: 3px;
 }
 
+.container-header {
+    background-color: #0052D4;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-radius: 6px 6px 0 0;
+}
+
+.form-header {
+    color: white;
+    margin-left: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .login-container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end; 
+    min-height: 90vh;
     justify-content: center;
-    width: 100%;
-    height: 810px;
+    align-items: center;
+    flex-direction: column;
     transform: scale(1.2);
-    border: 1px solid red;
+    margin-right: 100px;
 }
 
 .login-form {
     display: flex;
-    justify-content: flex-start;
-    flex-direction: column;   /* empilha os inputs */
+    flex-direction: column;
     background-color: #f1f1f1;
     width: 350px;
-    min-height: 260px;
-    padding: 10px;
-    padding-top: 35px;
-    margin-right: 200px;
-    margin-top: 60px;  
-    border-radius: 6px; 
+    border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+}
+
+.form-elements {
+    padding: 20px 10px 15px -10px;
+    margin-bottom: 30px;
+    margin-top: 10px;
 }
 
 .login-form button {
@@ -106,6 +133,7 @@ input {
     border-radius: 4px;
 }
 
+
 input::placeholder {
     font-family: 'Roboto', 'Sans-Serif';
 }
@@ -115,15 +143,10 @@ label {
     font-size: 14px;
 }
 
-body {
-    background-color: #bdc3c7;
-    font-family: 'Roboto', sans-serif;
-    overflow-y: hidden;
-    overflow-x: hidden;
-}   
 
 .botao-cadastro {
-    margin: 25px 200px 30px 0px;
+    margin-top: 25px;
+    font-size: 15px;
     padding: 9px 20px;
     text-decoration: none;
     background-color: white;
@@ -132,7 +155,7 @@ body {
     border-radius: 4px;
     color: black;
     font-weight: bold;
-    width: 372px;
+    width: 310px;
     text-align: center;
     cursor: pointer;
     transition: 0.3s ease;
@@ -146,18 +169,11 @@ body {
 
 .erro {
     font-size: 13px;
-    padding-bottom: 10px;
-    padding-left: 40px;
+    margin-bottom: 10px;
+    margin-left: 40px;
     color: red; 
 }
 
-.erro-senha {
-    font-size: 13px;
-    padding-left: 40px;
-    color: red; 
-}
-
-.erro-campo{
-    border: 1px solid red;
-    background-color: #ffe6e6;
+.erro-campo {
+    border: 2px solid #f26d55;
 }

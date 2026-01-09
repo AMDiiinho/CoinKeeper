@@ -5,20 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Esqueci minha senha</title>
+    @vite('resources/css/esqueci-minha-senha.css')
 
 </head>
 <body>
 
-    <h3>Para redefinir sua senha, informe seu e-mail</h3>
+    
 
-    <form action="/esqueciMinhaSenha" method="POST">
+    <div class="email-container">
+        <div class="email-form">
+            <form action="/esqueciMinhaSenha" method="POST">
 
-        @csrf
-        <label for="email"></label>
-        <x-input type="text" name="email" placeholder="Digite um e-mail válido"/>
+                @csrf
 
-        <button>Enviar</button>
-    </form>
+                <div class="form-elements">
 
+                    <label for="email">Seu e-mail de recuperação</label>
+                    <x-input type="text" name="email" placeholder="Digite um e-mail válido"/>
+
+                    <button class="botao-envio">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container-header">
+        <p class="form-header">Para redefinir sua senha, informe seu e-mail<p>
+    </div>
+    
 </body>
 </html>

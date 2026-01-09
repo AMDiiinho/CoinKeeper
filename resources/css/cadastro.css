@@ -1,0 +1,162 @@
+.menu-bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #e7e7e7;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+}
+
+body {
+    background-color: #bdc3c7;
+    font-family: 'Roboto', sans-serif;
+} 
+
+.menu-bar li a {
+    display: block; 
+    border-radius: 5px;
+    color: #111111;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s ease-in-out
+}
+
+.menu-bar li a:hover {
+    background-color: #45d16a;
+    
+}
+
+.menu-bar .right {
+    margin-left: auto;
+    padding-right: 3px;
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 92vh;
+    width: 100%;
+}
+
+.container-header {
+    background-color: #0052D4;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-radius: 6px 6px 0 0;
+}
+
+.form-header {
+    color: white;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.cadastro-container {
+    
+    display: flex;
+    margin-right: 100px;
+    transform: scale(1.2);
+}
+
+.cadastro-form {
+    display: flex;
+    flex-direction: column;   /* empilha os inputs */
+    background-color: #f1f1f1;
+    width: 350px;
+    padding: 0px;
+    border-radius: 6px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+}
+
+.form-elements {
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+.cadastro-form button {
+    margin-top: 12px;
+    padding: 9px 20px;
+    background-color: white;
+    border: 1px solid #797979ff;
+    border-radius: 4px;
+    color: black;
+    cursor: pointer;
+    margin-left: 193px;
+    transition: all 0.3s ease-in-out;
+}
+
+.cadastro-form button:hover{
+    border: 1px solid #45d16a;  
+    background-color: #45d16a;
+    color: white;
+}
+
+
+input {
+    width: 250px;
+    margin: 3px 0 0 40px;
+    padding: 10px;
+    border: 1px solid #797979ff;
+    border-radius: 4px;
+}
+
+.dataNasc{
+    font-family: 'Roboto', 'Sans-Serif';
+    font-size: 13px;
+    color: #797979ff;
+}
+
+.ddd {
+    width: 50px;
+}
+
+.dddetelefone {
+    display: flex;
+    flex-direction: row;
+    margin-left: 40px; /* mantém alinhado com os outros campos */
+    gap: 5px;   
+}
+
+.dddetelefone input {
+    margin-left: 0;
+}
+
+.dddetelefone .ddd {
+    width: 50px;
+}
+
+.dddetelefone .telefone {
+    width: 173px;
+}
+
+label { 
+    margin-left: 40px;
+    font-size: 14px;
+}
+
+.form-titulo {
+    font-size: 18px;
+    line-height: 1.2;
+    margin: 10px;
+    font-weight: normal;
+}
+
+      
+
+.erro-campo {
+    border: 2px solid #f26d55;
+}
+
+.erro {
+    font-size: 12px;
+    color: red;
+    margin-left: 40px;
+}
