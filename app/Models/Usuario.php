@@ -11,7 +11,7 @@ class Usuario extends Authenticatable
 
     protected $table = 'tb_usuarios';
 
-    protected $fillable = ['nome', 'dataNasc', 'ddd', 'telefone', 'email', 'senha'];
+    protected $fillable = ['nome', 'dataNasc', 'ddd', 'telefone', 'email', 'senha', 'password_reset_token', 'password_reset_expires_at',];
 
     public function getAuthPassword()
     {

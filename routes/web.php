@@ -42,7 +42,15 @@ Route::post('/cadastrarUsuario', [HomeController::class, 'cadastrarUsuario'])->n
 Route::post('/login', [HomeController::class, 'logar'])->name('dadosLogin');
 
 
+Route::get('/esqueciMinhaSenha', [HomeController::class, 'esqueciMinhaSenha']);
 
+Route::post('/esqueciMinhaSenha', [HomeController::class, 'email']);
+
+Route::get('/redefinirSenha/{codigo}', [HomeController::class, 'alterarSenha'])->name('alterarSenha');
+
+Route::get('/redefinirSenha/{codigo}/valida', [HomeController::class, 'valida'])->name('validaCodigo');
+
+Route::post('/redefinirSenha/{codigo}', [HomeController::class, 'redefinirSenha'])->name('redefinirSenha');
 
 /*
     ====================================================================================================

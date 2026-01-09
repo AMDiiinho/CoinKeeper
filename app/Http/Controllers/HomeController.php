@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CadastroRequest;
+use App\Mail\AlteracaoDeSenha;
 use App\Models\Usuario;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Models\RedefinirSenha;
+use Illuminate\Support\Str;           
+
 
 class HomeController extends Controller
 {
@@ -47,6 +53,68 @@ class HomeController extends Controller
         Auth::login($usuario);
 
         return redirect()->intended('dashboard');
+    }
+
+    public function esqueciMinhaSenha() {
+
+        return view('esqueciMinhaSenha');
+    }
+
+    public function email(Request $request) {
+
+        $buscaUsuario = Usuario::where('email', $request->email)->first();
+
+        if(!empty($buscaUsuario)) {
+
+            $codigo = str_replace('.', '', microtime(true)). \Str::random(10);
+
+            $new = RedefinirSenha::create([
+                'codigo' => $codigo,
+                'email' => $request->email
+            ]);
+
+            $url = route('validaCodigo', ['codigo' => $new->codigo]);
+
+            $data = array_merge($new->toArray(), [
+                'url' => $url,
+            ]);
+
+            Mail::to('arthur.marques@loglabdigital.com.br')->send(new AlteracaoDeSenha($data));
+
+            return view('confirmarEmail');
+        }
+
+    }
+
+    public function valida(Request $request) {
+        
+        $codigo = RedefinirSenha::where('codigo', $request->codigo)->first();
+
+        return view('alterarSenha', [
+            'codigo' => $codigo
+        ]);
+    }
+
+    public function redefinirSenha (Request $request, $codigo) {
+
+        $findCodigo = RedefinirSenha::where('codigo', $codigo)->first();
+
+        if(!empty($findCodigo)){
+
+            $buscaUsuario = Usuario::where("email", $findCodigo->email)->first();
+
+
+            $buscaUsuario->senha =  bcrypt($request->novaSenha);
+
+            if($buscaUsuario->save()){
+              
+                return "senha alterada com sucesso";
+            }
+
+            return "nn foi possivel trocar a senha";
+
+
+        }
     }
 
     /*

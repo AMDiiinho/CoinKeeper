@@ -44,13 +44,19 @@
 
                 <button type="submit">Entrar</button>
 
+                <div class="recuperacao-link">
+                    <a href="/esqueciMinhaSenha">Esqueceu a senha?</a>
+                </div>
+
             </form>
-            <div class="cadastro-link">
-                    <a href="/cadastro">Cadastre-se agora!</a>
-            </div>
         </div>
+
+        <button class="botao-cadastro">Cadastre-se agora!</button>
+
+
     </div>
 
+    
 
 </body>
 
